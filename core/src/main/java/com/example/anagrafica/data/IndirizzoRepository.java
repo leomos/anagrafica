@@ -1,8 +1,6 @@
-package com.example.anagrafica.data.repositories;
+package com.example.anagrafica.data;
 
 import org.springframework.data.repository.CrudRepository;
-
-import com.example.anagrafica.data.entities.Indirizzo;
 
 public interface IndirizzoRepository extends CrudRepository<Indirizzo, Integer> {
 

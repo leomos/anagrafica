@@ -1,4 +1,4 @@
-package com.example.anagrafica.data.services;
+package com.example.anagrafica.business;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.anagrafica.data.entities.Indirizzo;
-import com.example.anagrafica.data.repositories.IndirizzoRepository;
+import com.example.anagrafica.data.Indirizzo;
+import com.example.anagrafica.data.IndirizzoRepository;
 
 @Service
 public class IndirizzoService implements ServiceInterface<Indirizzo> {

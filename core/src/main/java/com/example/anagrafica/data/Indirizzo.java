@@ -1,4 +1,4 @@
-package com.example.anagrafica.data.entities;
+package com.example.anagrafica.data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
