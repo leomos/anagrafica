@@ -19,7 +19,6 @@ CREATE TABLE indirizzo (
 
 create table cliente (
 	id integer auto_increment primary key,
-
 	nome varchar(30) NOT NULL,
 	cognome varchar(50) NOT NULL,
 	sesso char(1) check (value in ("f","m") ),

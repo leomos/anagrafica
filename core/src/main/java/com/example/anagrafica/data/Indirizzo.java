@@ -40,6 +40,8 @@ public class Indirizzo {
 		this.regione = regione;
 		this.nazione = nazione;
 	}
+	
+	public Indirizzo() {}
 
 	public Integer getId() {
 		return id;
