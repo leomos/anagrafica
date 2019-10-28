@@ -1,4 +1,4 @@
-package com.example.anagrafica.data;
+package com.example.anagrafica;
 
 import java.util.Optional;
 
