@@ -21,7 +21,7 @@ public class ClienteService {
 
 	public Boolean create(Cliente cliente, Map<String, Indirizzo> indirizzi) {
 		if (this.clienteRepository.existsByCf(cliente.getCf())) {
-			return null;
+			return false;
 		} else
 
 		{
