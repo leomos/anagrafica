@@ -1,7 +1,7 @@
 package com.example.anagrafica.data;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IndirizzoRepository extends CrudRepository<Indirizzo, Integer> {
+public interface IndirizzoRepository extends JpaRepository<Indirizzo, Integer> {
 
 }
