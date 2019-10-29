@@ -30,5 +30,11 @@ public class ClienteService{
 		return indirizzoCliente !=null;
 	}
 
-	
-}
+	public Boolean update(Cliente entity) {
+		if(clienteRepository.existsById(entity.getId())) {
+			Cliente savedCliente = this.clienteRepository.save(entity);
+			return savedCliente != null;
+		} else {
+			return false;
+		}}}
+

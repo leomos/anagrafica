@@ -12,6 +12,13 @@ import javax.persistence.OneToMany;
 @Entity
 public class Indirizzo {
 	
+	@Override
+	public String toString() {
+		return "Indirizzo [id=" + id + ", luogo=" + luogo + ", numeroCivico=" + numeroCivico + ", citta=" + citta
+				+ ", provincia=" + provincia + ", regione=" + regione + ", nazione=" + nazione + ", indirizziClienti="
+				+ indirizziClienti + "]";
+	}
+
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
