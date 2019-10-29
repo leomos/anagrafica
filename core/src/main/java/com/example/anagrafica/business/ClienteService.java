@@ -23,9 +23,7 @@ public class ClienteService {
 	public Boolean create(Cliente cliente, Map<String, Indirizzo> indirizzi) {
 		if (this.clienteRepository.existsByCf(cliente.getCf())) {
 			return false;
-		} else
-
-		{
+		} else {
 			Cliente clienteSaved = clienteRepository.save(cliente);
 			IndirizzoCliente indirizzoCliente = null;
 
@@ -36,8 +34,17 @@ public class ClienteService {
 			return indirizzoCliente != null;
 		}
 	}
-	public Collection<Cliente> getAll() {
+	
+  public Collection<Cliente> getAll() {
 		return (Collection<Cliente>) this.clienteRepository.findAll();
 	}
-
+  
+	public Boolean update(Cliente entity) {
+	  if(clienteRepository.existsById(entity.getId())) {
+			Cliente savedCliente = this.clienteRepository.save(entity);
+			return savedCliente != null;
+		} else {
+			return false;
+		}
+  }
 }
