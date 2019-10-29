@@ -176,6 +176,13 @@ public class Cliente {
 	public void setIndirizziClienti(Set<IndirizzoCliente> indirizziClienti) {
 		this.indirizziClienti = indirizziClienti;
 	}
+
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", sesso=" + sesso + ", cf=" + cf
+				+ ", dataDiNascita=" + dataDiNascita + ", luogoDiNascita=" + luogoDiNascita + ", mail=" + mail
+				+ ", telefono=" + telefono + "]";
+	}
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.example.anagrafica.business;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class ClienteService{
 			indirizzoClienteRepository.save(indirizzoCliente);
 		}
 		return indirizzoCliente !=null;
+	}
+	public Collection<Cliente> getAll() {
+		return (Collection<Cliente>) this.clienteRepository.findAll();
 	}
 
 	
