@@ -2,28 +2,40 @@ package com.example.anagrafica.data;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 
 @Entity
 public class IndirizzoCliente implements Serializable {
 	
-	@Id
-	@ManyToOne
-	@JoinColumn(name="id_cliente")
+	@EmbeddedId
+	private IndirizzoClientePK id;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@MapsId("id_cliente")
+	@JoinColumn(name="id_cliente", nullable = false, insertable = false, updatable = false)
 	private Cliente cliente;
 	
-	@Id
-	@ManyToOne
-	@JoinColumn(name="id_indirizzo")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@MapsId("id_indirizzo")
+	@JoinColumn(name="id_indirizzo", nullable = false, insertable = false, updatable = false)
 	private Indirizzo indirizzo;
 	
-	@Id
-	private String tipo;
-	
 	public IndirizzoCliente() {}
+	
+	public IndirizzoCliente(Indirizzo indirizzo, Cliente cliente, String tipo) {
+		IndirizzoClientePK icpk = new IndirizzoClientePK();
+		icpk.setIdCliente(cliente.getId());
+		icpk.setIdIndirizzo(indirizzo.getId());
+		icpk.setTipo(tipo);
+		this.id = icpk;
+	}
 
 	public Cliente getCliente() {
 		return cliente;
@@ -41,13 +53,12 @@ public class IndirizzoCliente implements Serializable {
 		this.indirizzo = indirizzo;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public IndirizzoClientePK getId() {
+		return id;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setId(IndirizzoClientePK id) {
+		this.id = id;
 	}
-	
 	
 }

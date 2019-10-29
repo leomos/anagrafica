@@ -1,20 +1,25 @@
 package com.example.anagrafica.data;
 
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Indirizzo {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 	
 	private String luogo;
-	
-	private Integer numero_civico;
+
+	@Column(name="numero_civico")
+	private Integer numeroCivico;
 	
 	private String citta;
 	
@@ -24,17 +29,18 @@ public class Indirizzo {
 	
 	private String nazione;
 	
-	public Indirizzo(Integer id, 
-			String luogo, 
-			Integer numero_civico, 
+	@OneToMany(mappedBy="indirizzo")
+	Set<IndirizzoCliente> indirizziClienti;
+	
+	public Indirizzo(String luogo, 
+			Integer numeroCivico, 
 			String citta, 
 			String provincia, 
 			String regione,
 			String nazione) {
 		super();
-		this.id = id;
 		this.luogo = luogo;
-		this.numero_civico = numero_civico;
+		this.numeroCivico = numeroCivico;
 		this.citta = citta;
 		this.provincia = provincia;
 		this.regione = regione;
@@ -59,12 +65,12 @@ public class Indirizzo {
 		this.luogo = luogo;
 	}
 
-	public Integer getNumero_civico() {
-		return numero_civico;
+	public Integer getNumeroCivico() {
+		return numeroCivico;
 	}
 
-	public void setNumero_civico(Integer numero_civico) {
-		this.numero_civico = numero_civico;
+	public void setNumeroCivico(Integer numeroCivico) {
+		this.numeroCivico = numeroCivico;
 	}
 
 	public String getCitta() {

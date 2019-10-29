@@ -1,5 +1,8 @@
 package com.example.anagrafica;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import com.example.anagrafica.data.Cliente;
 import com.example.anagrafica.data.ClienteRepository;
 import com.example.anagrafica.data.Indirizzo;
 import com.example.anagrafica.data.IndirizzoCliente;
+import com.example.anagrafica.data.IndirizzoClientePK;
+import com.example.anagrafica.data.IndirizzoClienteRepository;
 import com.example.anagrafica.data.IndirizzoRepository;
 
 @Controller
@@ -22,19 +27,25 @@ public class TestController {
 	@Autowired
 	ClienteRepository clienteRepository;
 	
+	@Autowired
+	IndirizzoClienteRepository indirizzoClienteRepository;
+	
 	@GetMapping("/")
-	public String index(ModelMap model) {
-		Indirizzo ind = this.indirizzoRepository.findById(1).get();
-		System.out.println(ind.getLuogo());
+	public String index(ModelMap model) {		
+		Indirizzo indirizzoDiResidenza = this.indirizzoRepository.findById(1).get(); 
+		Cliente cliente = this.clienteRepository.findById(1).get();
 		
-		Cliente c = this.clienteRepository.findById(1).get();
-		System.out.println(c.getCf());
-		System.out.println(c.getDataDiNascita());
-		System.out.println( ((List<Indirizzo>)c.getIndirizzi()).get(0).getLuogo() );
+		for(IndirizzoCliente ic : cliente.getIndirizziClienti()) {
+			System.out.println(ic.getId().getTipo());
+		}
+//		IndirizzoClientePK icpk = new IndirizzoClientePK();
+//		icpk.setIdCliente(cliente.getId());
+//		icpk.setIdIndirizzo(indirizzoDiResidenza.getId());
+//		icpk.setTipo("residenza");
 		
+//		IndirizzoCliente indc = new IndirizzoCliente(indirizzoDiResidenza, cliente, "residenza");
+//		indirizzoClienteRepository.save(indc);
 		
-		List<IndirizzoCliente> ic = (List<IndirizzoCliente>) this.clienteRepository.findById(1).get().getIndirizziClienti();
-		System.out.println(ic.get(0).getTipo());
 		return "index";
 	}
 }

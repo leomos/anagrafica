@@ -2,6 +2,8 @@ package com.example.anagrafica.data;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +18,7 @@ import javax.persistence.OneToMany;
 public class Cliente {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String nome;
@@ -37,7 +39,7 @@ public class Cliente {
 	
 	private String telefono;
 	
-	@OneToMany
+	/*@OneToMany
 	@JoinTable(
 			name="indirizzo_cliente",
 			joinColumns = @JoinColumn(
@@ -49,12 +51,42 @@ public class Cliente {
 	                referencedColumnName = "id"
 	        )
 	)
-	private Collection<Indirizzo> indirizzi;
+	private Collection<Indirizzo> indirizzi;*/
 	
-	@OneToMany(mappedBy = "cliente", targetEntity = IndirizzoCliente.class)
-	private Collection<IndirizzoCliente> indirizziClienti;
+	@OneToMany(mappedBy = "cliente")
+	private Set<IndirizzoCliente> indirizziClienti;
 	
 	private Cliente() {}
+
+	public Cliente(String nome, String cognome, Character sesso, String cf, Date dataDiNascita,
+			String luogoDiNascita, String mail, String telefono) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.sesso = sesso;
+		this.cf = cf;
+		this.dataDiNascita = dataDiNascita;
+		this.luogoDiNascita = luogoDiNascita;
+		this.mail = mail;
+		this.telefono = telefono;
+	}
+	
+	public Cliente(String nome, String cognome, Character sesso, String cf, Date dataDiNascita,
+			String luogoDiNascita, String mail, String telefono,
+			Map<String, Indirizzo> indirizzi) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.sesso = sesso;
+		this.cf = cf;
+		this.dataDiNascita = dataDiNascita;
+		this.luogoDiNascita = luogoDiNascita;
+		this.mail = mail;
+		this.telefono = telefono;
+		
+		Indirizzo residenza = indirizzi.get("residenza");
+		
+	}
 
 	public Integer getId() {
 		return id;
@@ -128,19 +160,20 @@ public class Cliente {
 		this.telefono = telefono;
 	}
 
+	/*
 	public Collection<Indirizzo> getIndirizzi() {
 		return indirizzi;
 	}
 
 	public void setIndirizzi(Collection<Indirizzo> indirizzi) {
 		this.indirizzi = indirizzi;
-	}
+	}*/
 
-	public Collection<IndirizzoCliente> getIndirizziClienti() {
+	public Set<IndirizzoCliente> getIndirizziClienti() {
 		return indirizziClienti;
 	}
 
-	public void setIndirizziClienti(Collection<IndirizzoCliente> indirizziClienti) {
+	public void setIndirizziClienti(Set<IndirizzoCliente> indirizziClienti) {
 		this.indirizziClienti = indirizziClienti;
 	}
 	
