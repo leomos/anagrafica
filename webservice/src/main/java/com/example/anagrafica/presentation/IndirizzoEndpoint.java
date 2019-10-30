@@ -24,8 +24,8 @@ public class IndirizzoEndpoint {
 		GetListaIndirizziResponse response = new GetListaIndirizziResponse();
 		String luogo = this.indirizzoService.get(1).get().getLuogo();
 		System.out.println(luogo);
-		response.setLuogo(luogo);
-
+		response.getLuogo().add(luogo);
+		response.getLuogo().add(luogo);
 		return response;
 	}
 }

@@ -12,7 +12,7 @@
     <xs:element name="getListaIndirizziResponse">
     	<xs:complexType>
     		<xs:sequence>
-    			<xs:element name="luogo" type="xs:string"/>
+    			<xs:element name="luogo" type="xs:string" maxOccurs="unbounded"/>
     		</xs:sequence>
     	</xs:complexType>
     </xs:element>
