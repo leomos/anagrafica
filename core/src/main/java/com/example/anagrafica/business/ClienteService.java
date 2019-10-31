@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Optionals;
 import org.springframework.stereotype.Service;
 
 import com.example.anagrafica.data.Cliente;
@@ -31,19 +32,25 @@ public class ClienteService {
 			IndirizzoCliente indirizzoCliente = null;
 
 			for (String s : indirizzi.keySet()) {
-				indirizzoCliente = new IndirizzoCliente(indirizzi.get(s), clienteSaved, s);
+				
+				Indirizzo l = indirizzi.get(s);
+				indirizzoCliente = new IndirizzoCliente(l, clienteSaved, s);
 				indirizzoClienteRepository.save(indirizzoCliente);
 			}
-			return indirizzoCliente != null;
+			return true;
 		}
 	}
 	
-  public Collection<Cliente> getAll() {
+	public Optional<Cliente> getClienteById(Integer id) {
+		return this.clienteRepository.findById(id);
+	}
+
+	public Collection<Cliente> getAll() {
 		return (Collection<Cliente>) this.clienteRepository.findAll();
 	}
-  
+
 	public Boolean update(Cliente entity) {
-	  if(clienteRepository.existsById(entity.getId())) {
+		if (clienteRepository.existsById(entity.getId())) {
 			Cliente savedCliente = this.clienteRepository.save(entity);
 			return savedCliente != null;
 		} else {
@@ -61,5 +68,14 @@ public class ClienteService {
 		;
 	}
 	
-	
+	}
+
+	public Optional<Cliente> getById(int id) {
+		Optional<Cliente> clienteById = clienteRepository.findById(id);
+		return clienteById;
+	}
+
+	public Cliente getByCf(String cfCliente) {
+		return clienteRepository.findByCf(cfCliente).get();
+	}
 }

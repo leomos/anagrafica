@@ -54,6 +54,8 @@ public class Indirizzo {
 	}
 	
 	public Indirizzo() {}
+	
+	public Indirizzo(int i, String string, int j, String string2, String string3, String string4, String string5) {}
 
 	public Integer getId() {
 		return id;
