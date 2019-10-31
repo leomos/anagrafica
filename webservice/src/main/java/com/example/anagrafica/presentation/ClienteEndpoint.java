@@ -32,7 +32,17 @@ public class ClienteEndpoint {
 		clienteRichiesto.setCognome(c.getCognome());
 		clienteRichiesto.setSesso(Character.toString(c.getSesso()));
 		clienteRichiesto.setCf(c.getCf());
+		clienteRichiesto.setDataDiNascita(dateConversione(c));
+		clienteRichiesto.setLuogoDiNascita(c.getLuogoDiNascita());
+		clienteRichiesto.setMail(c.getMail());
+		clienteRichiesto.setTelefono(c.getTelefono());
+		response.getClienteRichiesto().add(clienteRichiesto);
+		return response;
+	}
 
+	// metodo per effettuare la conversione della data di tipo Date in
+	// XMLGregorianCalendar
+	public static XMLGregorianCalendar dateConversione(Cliente c) {
 		XMLGregorianCalendar xmlDate = null;
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.setTime(c.getDataDiNascita());
@@ -41,13 +51,9 @@ public class ClienteEndpoint {
 			xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(gc);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
 
-		clienteRichiesto.setDataDiNascita(xmlDate);
-		clienteRichiesto.setLuogoDiNascita(c.getLuogoDiNascita());
-		clienteRichiesto.setMail(c.getMail());
-		clienteRichiesto.setTelefono(c.getTelefono());
-		response.getClienteRichiesto().add(clienteRichiesto);
-		return response;
+		}
+		return xmlDate;
 	}
+
 }
