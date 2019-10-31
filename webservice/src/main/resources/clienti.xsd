@@ -2,4 +2,37 @@
 	xmlns:tns="presentation.anagrafica.example.com"
 	targetNamespace="presentation.anagrafica.example.com"
 	elementFormDefault="qualified">
+	
+	
+	<xs:element name="GetClienteByDettaglioRequest">
+	<xs:complexType>
+            <xs:sequence>
+                <xs:element name="CfCliente" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    
+    <xs:complexType name="ClienteByCf">
+    <xs:sequence>
+    <xs:element name="nome" type="xs:string"/>
+    <xs:element name="cognome" type="xs:string"/>
+    <xs:element name="sesso" type="xs:string"/>
+    <xs:element name="cf" type="xs:string"/>
+    <xs:element name="data_di_nascita" type="xs:date"/>
+    <xs:element name="luogo_di_nascita" type="xs:string"/>
+    <xs:element name="mail" type="xs:string"/>
+    <xs:element name="telefono" type="xs:string"/>
+    </xs:sequence>
+    </xs:complexType>
+        
+    <xs:element name="GetClienteByDettaglioResponse">
+    	<xs:complexType>
+    		<xs:sequence>
+    			<xs:element name="Cliente_Richiesto" type="tns:ClienteByCf" maxOccurs="unbounded" />
+    			
+    		</xs:sequence>
+    	</xs:complexType>
+    </xs:element>
+	
 </xs:schema>
