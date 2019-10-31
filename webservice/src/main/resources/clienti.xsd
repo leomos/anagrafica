@@ -27,4 +27,26 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	
+	<xs:element name="deleteClienteByIdRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="idCliente" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<xs:element name="deleteClienteByCfRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="cfCliente" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getDeletedClienteResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ClienteVisibile" type="xs:boolean"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 </xs:schema>

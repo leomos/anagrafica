@@ -10,5 +10,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	boolean existsByCf(String cf);
 	Optional<Cliente> findByIdAndVisibileTrue(int id);
 	List<Cliente> findAllByVisibileTrue();
-	
+	Optional<Cliente> findByCf(String string);
 }

@@ -19,7 +19,7 @@ public class ClienteEndpoint {
 	
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getClientiVisibiliRequest")
 	@ResponsePayload
-	public GetClientiVisibiliResponse deleteCliente(@RequestPayload GetClientiVisibiliRequest request) {
+	public GetClientiVisibiliResponse getClientiVisibili(@RequestPayload GetClientiVisibiliRequest request) {
 		GetClientiVisibiliResponse response = new GetClientiVisibiliResponse();
         for(Cliente cl:this.clienteService.getAllVisibile()){
         	com.example.anagrafica.presentation.Cliente client=new com.example.anagrafica.presentation.Cliente();
@@ -36,4 +36,27 @@ public class ClienteEndpoint {
 		return response;
 		
 	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteClienteByIdRequest")
+	@ResponsePayload
+	public GetDeletedClienteResponse deleteByIdCliente(@RequestPayload DeleteClienteByIdRequest request) {
+		System.out.println(request.idCliente);
+		GetDeletedClienteResponse response = new GetDeletedClienteResponse();
+		System.out.print(clienteService.get(request.idCliente).get().isVisibile());
+		response.setClienteVisibile(this.clienteService.deleteLogical(clienteService.get(request.idCliente).get()));      
+		System.out.print(this.clienteService.deleteLogical(clienteService.get(request.idCliente).get()));
+		return response;
+	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteClienteByCfRequest")
+	@ResponsePayload
+	public GetDeletedClienteResponse deleteByCfCliente(@RequestPayload DeleteClienteByCfRequest request) {
+		System.out.println(request.cfCliente);
+		GetDeletedClienteResponse response = new GetDeletedClienteResponse();
+		System.out.print(clienteService.getByCf(request.cfCliente).get().isVisibile());
+		response.setClienteVisibile(this.clienteService.deleteLogical(clienteService.getByCf(request.cfCliente).get()));      
+		System.out.print(clienteService.getByCf(request.cfCliente).get().isVisibile());
+		return response;
+	}
+	
 }

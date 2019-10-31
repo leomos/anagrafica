@@ -42,6 +42,9 @@ public class ClienteService {
 	public Optional<Cliente> get(Integer id) {
 		return this.clienteRepository.findById(id);
 	}
+	public Optional<Cliente> getByCf(String string) {
+		return this.clienteRepository.findByCf(string);
+	}
 	public Boolean update(Cliente entity) {
 	  if(clienteRepository.existsById(entity.getId())) {
 			Cliente savedCliente = this.clienteRepository.save(entity);
@@ -55,7 +58,7 @@ public class ClienteService {
 		this.clienteRepository.save(entity);
 		return entity.isVisibile();
 	}
-	
+
 	public Optional<Cliente> getVisibile(Integer id) {
 		return this.clienteRepository.findByIdAndVisibileTrue(id);
 	}
