@@ -25,7 +25,10 @@ public class ClienteEndpoint {
 	private ClienteService clienteService;
 	
 
-	
+	/**
+	 * 
+	 * prende un cliente, modifica e  ritorna una stringa
+	 */
 
 	
 
@@ -65,6 +68,11 @@ public class ClienteEndpoint {
 		return response;
 	}
 
+	
+	/**
+	 * 
+	 *prende in ingresso dei parametri e filtra il getall grazie ad essi, tornando il risultante
+	 */
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getListaFiltrataRequest")
 	@ResponsePayload
 	public GetListaFiltrataResponse GetListaFiltrata(@RequestPayload GetListaFiltrataRequest request) throws Exception {
