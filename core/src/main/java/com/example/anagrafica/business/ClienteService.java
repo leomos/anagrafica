@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.example.anagrafica.data.Cliente;
@@ -38,6 +39,18 @@ public class ClienteService {
   public Collection<Cliente> getAll() {
 		return (Collection<Cliente>) this.clienteRepository.findAll();
 	}
+  
+  
+  public Cliente getById(int id) {
+		if (this.clienteRepository.existsById(id) == true) {
+			for ( Cliente c : clienteRepository.findAll())
+			{ if (id == c.getId()) {			
+			   return c;
+			}
+			}
+		}
+		return null;
+  }
   
 	public Boolean update(Cliente entity) {
 	  if(clienteRepository.existsById(entity.getId())) {
