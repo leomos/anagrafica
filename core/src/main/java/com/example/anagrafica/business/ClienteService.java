@@ -2,6 +2,7 @@ package com.example.anagrafica.business;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,9 @@ public class ClienteService {
   public Collection<Cliente> getAll() {
 		return (Collection<Cliente>) this.clienteRepository.findAll();
 	}
-  
+	public Optional<Cliente> get(Integer id) {
+		return this.clienteRepository.findById(id);
+	}
 	public Boolean update(Cliente entity) {
 	  if(clienteRepository.existsById(entity.getId())) {
 			Cliente savedCliente = this.clienteRepository.save(entity);
@@ -47,4 +50,9 @@ public class ClienteService {
 			return false;
 		}
   }
+	public Boolean deleteLogical(Cliente entity) {
+		if(entity.isVisibile()) {entity.setVisibile(false);}
+		this.clienteRepository.save(entity);
+		return entity.isVisibile();
+	}
 }

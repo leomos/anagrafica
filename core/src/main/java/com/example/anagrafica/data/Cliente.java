@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,6 +40,7 @@ public class Cliente {
 	
 	private String telefono;
 	
+	private Boolean visibile;
 	/*@OneToMany
 	@JoinTable(
 			name="indirizzo_cliente",
@@ -53,7 +55,15 @@ public class Cliente {
 	)
 	private Collection<Indirizzo> indirizzi;*/
 	
-	@OneToMany(mappedBy = "cliente")
+	public Boolean isVisibile() {
+		return visibile;
+	}
+
+	public void setVisibile(Boolean visibile) {
+		this.visibile = visibile;
+	}
+
+	@OneToMany(mappedBy = "cliente",fetch=FetchType.EAGER)
 	private Set<IndirizzoCliente> indirizziClienti;
 	
 	private Cliente() {}
