@@ -2,6 +2,7 @@ package com.example.anagrafica.business;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,4 +48,13 @@ public class ClienteService {
 			return false;
 		}
   }
+	
+	
+	public Optional<Cliente> get(Integer id) {
+		return this.clienteRepository.findById(id);
+	}
+		
+	
+	
+	
 }
