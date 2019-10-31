@@ -54,10 +54,11 @@ public class Cliente {
 	)
 	private Collection<Indirizzo> indirizzi;*/
 	
-	@OneToMany(mappedBy = "cliente", fetch=FetchType.EAGER  )
+
+	@OneToMany(mappedBy = "cliente", fetch=FetchType.EAGER)
 	private Set<IndirizzoCliente> indirizziClienti;
 	
-	private Cliente() {}
+	public Cliente() {}
 
 	public Cliente(String nome, String cognome, Character sesso, String cf, Date dataDiNascita,
 			String luogoDiNascita, String mail, String telefono) {
@@ -88,6 +89,7 @@ public class Cliente {
 		Indirizzo residenza = indirizzi.get("residenza");
 		
 	}
+
 
 	public Integer getId() {
 		return id;

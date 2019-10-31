@@ -42,17 +42,26 @@ public class ClienteService {
 	public Optional<Cliente> getClienteById(Integer id) {
 		return this.clienteRepository.findById(id);
 	}
-	
-    public Collection<Cliente> getAll() {
+
+	public Collection<Cliente> getAll() {
 		return (Collection<Cliente>) this.clienteRepository.findAll();
 	}
-  
+
 	public Boolean update(Cliente entity) {
-	  if(clienteRepository.existsById(entity.getId())) {
+		if (clienteRepository.existsById(entity.getId())) {
 			Cliente savedCliente = this.clienteRepository.save(entity);
 			return savedCliente != null;
 		} else {
 			return false;
 		}
-  }
+	}
+
+	public Optional<Cliente> getById(int id) {
+		Optional<Cliente> clienteById = clienteRepository.findById(id);
+		return clienteById;
+	}
+
+	public Cliente getByCf(String cfCliente) {
+		return clienteRepository.findByCf(cfCliente).get();
+	}
 }
