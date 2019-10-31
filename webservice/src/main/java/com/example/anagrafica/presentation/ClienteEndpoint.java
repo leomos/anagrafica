@@ -125,40 +125,7 @@ public class ClienteEndpoint {
 	}
 		
 	System.out.println("222222"+CCli.toString());
-		/*
-		
-		
-		
-				
-		
-		
-		List<Cliente> lCli=	clienteService.findAllByAll(
-			
-			
-			request.getClienteX2().getNome(), 
-				request.getClienteX2().getCognome(),
-				request.getClienteX2().getSesso().charAt(0),
-				request.getClienteX2().getCf(),
-				
-				
-				
-				
-				
-				mt.dataCreator(request.getClienteX2().getDataIniziale()), 
-				mt.dataCreator(request.getClienteX2().getDataFinale()),
-				request.getClienteX2().getLuogoDiNascita(), 
-				request.getClienteX2().getMail(),
-				request.getClienteX2().getTelefono()
-			
-				);
-		
-		
-		
-		System.out.println(lCli.toString());
-		GetListaFiltrataResponse response= new GetListaFiltrataResponse();
-		
-		
-		*/
+	
 		for (Cliente c: CCli) {
 			
 			ClienteX x2=new ClienteX();
