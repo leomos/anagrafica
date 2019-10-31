@@ -4,18 +4,26 @@
 	elementFormDefault="qualified">
 
 
-	<xs:element name="deleteClienteRequest">
+	<xs:element name="getClientiVisibiliRequest">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="idCliente" type="xs:int" />
-			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-
-	<xs:element name="getDeletedClienteResponse">
+	<xs:complexType name="Cliente">
+		<xs:sequence>
+			<xs:element name="nome" type="xs:string" />
+			<xs:element name="cognome" type="xs:string" />
+			<xs:element name="sesso" type="xs:string" />
+			<xs:element name="cf" type="xs:string" />
+			<xs:element name="dataDiNascita" type="xs:string" />
+			<xs:element name="luogoDiNascita" type="xs:string" />
+			<xs:element name="mail" type="xs:string" />
+			<xs:element name="telefono" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="getClientiVisibiliResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ClienteVisibile" type="xs:boolean"></xs:element>
+				<xs:element name="ClientiVisibili" type="tns:Cliente" maxOccurs="unbounded"></xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

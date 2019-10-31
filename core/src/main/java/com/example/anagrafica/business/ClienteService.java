@@ -55,4 +55,11 @@ public class ClienteService {
 		this.clienteRepository.save(entity);
 		return entity.isVisibile();
 	}
+	
+	public Optional<Cliente> getVisibile(Integer id) {
+		return this.clienteRepository.findByIdAndVisibileTrue(id);
+	}
+	 public Collection<Cliente> getAllVisibile() {
+			return (Collection<Cliente>) this.clienteRepository.findAllByVisibileTrue();
+		}
 }
