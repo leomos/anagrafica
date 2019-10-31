@@ -7,7 +7,7 @@
 
 <xs:complexType name="clienteX">
 	<xs:sequence>
-		<xs:element name="idCliente" type="xs:int" />
+		<xs:element name="idCliente" type="xs:integer" />
 		<xs:element name="nome" type="xs:string" />
 		<xs:element name="cognome" type="xs:string" />
 		<xs:element name="sesso" type="tns:character"   />

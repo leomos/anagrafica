@@ -61,5 +61,7 @@ public class ClienteService {
 		;
 	}
 	
-	
+	public Optional<Cliente> getByCf(String cf) {
+		return this.clienteRepository.findByCf(cf);
+	}
 }

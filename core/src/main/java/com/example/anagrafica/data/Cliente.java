@@ -57,7 +57,7 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente" ,fetch=FetchType.EAGER)
 	private Set<IndirizzoCliente> indirizziClienti;
 	
-	private Cliente() {}
+	public Cliente() {}
 
 	public Cliente(String nome, String cognome, Character sesso, String cf, Date dataDiNascita,
 			String luogoDiNascita, String mail, String telefono) {
