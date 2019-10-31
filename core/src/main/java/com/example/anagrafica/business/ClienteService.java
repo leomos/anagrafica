@@ -2,6 +2,7 @@ package com.example.anagrafica.business;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -35,29 +36,26 @@ public class ClienteService {
 			return indirizzoCliente != null;
 		}
 	}
-	
-  public Collection<Cliente> getAll() {
+
+	public Collection<Cliente> getAll() {
 		return (Collection<Cliente>) this.clienteRepository.findAll();
 	}
-  
-  
-  public Cliente getById(int id) {
-		if (this.clienteRepository.existsById(id) == true) {
-			for ( Cliente c : clienteRepository.findAll())
-			{ if (id == c.getId()) {			
-			   return c;
-			}
-			}
-		}
-		return null;
-  }
-  
+
 	public Boolean update(Cliente entity) {
-	  if(clienteRepository.existsById(entity.getId())) {
+		if (clienteRepository.existsById(entity.getId())) {
 			Cliente savedCliente = this.clienteRepository.save(entity);
 			return savedCliente != null;
 		} else {
 			return false;
 		}
-  }
+	}
+
+	public Optional<Cliente> getById(int id) {
+		Optional<Cliente> clienteById = clienteRepository.findById(id);
+		return clienteById;
+	}
+
+	public Cliente getByCf(String cfCliente) {
+		return clienteRepository.findByCf(cfCliente).get();
+	}
 }
