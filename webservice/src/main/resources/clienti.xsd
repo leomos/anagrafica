@@ -12,7 +12,7 @@
 		<xs:element name="cognome" type="xs:string" />
 		<xs:element name="sesso" type="tns:character"   />
 		<xs:element name="cf" type="xs:string" />
-		<xs:element name="dataDiNascita" type="tns:StartDate" />
+		<xs:element name="dataDiNascita" type="tns:ModDate" />
 		<xs:element name="luogoDiNascita" type="xs:string" />
 		<xs:element name="mail" type="xs:string" />
 		<xs:element name="telefono" type="xs:string" />
@@ -22,7 +22,7 @@
 
 
 
-    <xs:simpleType name="StartDate">
+    <xs:simpleType name="ModDate">
         <xs:restriction base="xs:string">
             <xs:pattern value="\d{2}[/]\d{2}[/]\d{4}"></xs:pattern>
             <xs:length value="10"/>
@@ -60,4 +60,44 @@
 		</xs:sequence>
 	</xs:complexType>
 </xs:element>
+
+
+<xs:element name="getListaFiltrataRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="clienteX2" type="tns:clienteX2"  />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+
+
+<xs:element name="getListaFiltrataResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="clienteX" type="tns:clienteX" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+<xs:complexType name="clienteX2">
+	<xs:sequence>
+		
+		<xs:element name="nome" type="xs:string" />
+		<xs:element name="cognome" type="xs:string" />
+		<xs:element name="sesso" type="tns:character"   />
+		<xs:element name="cf" type="xs:string" />
+		<xs:element name="dataIniziale" type="tns:ModDate" default = "01/01/0001" />
+		<xs:element name="dataFinale" type="tns:ModDate" default = "01/12/9999" />
+		<xs:element name="ProvinciaDiResidenza" type="xs:string" />
+	<xs:element name="RegioneDiResidenza" type="xs:string" />
+	
+	</xs:sequence>
+</xs:complexType>
+
+
+
+
 </xs:schema>

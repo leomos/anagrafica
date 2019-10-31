@@ -1,6 +1,8 @@
 package com.example.anagrafica.business;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -54,7 +56,10 @@ public class ClienteService {
 		return this.clienteRepository.findById(id);
 	}
 		
-	
+	public List<Cliente> findAllByAll(String nome,String cognome,Character sesso,String cf,Date data1,Date data2,String luogoDiNascita,String mail,String telefono) {
+	return this.clienteRepository.findAllByNomeAndCognomeAndSessoAndCfAndDataDiNascitaBetweenAndLuogoDiNascitaAndMailAndTelefono(nome, cognome, sesso, cf, data1, data2, luogoDiNascita, mail, telefono)	
+		;
+	}
 	
 	
 }
