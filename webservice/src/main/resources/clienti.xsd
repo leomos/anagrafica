@@ -8,118 +8,117 @@
 			<xs:pattern value="\d{2}[/]\d{2}[/]\d{4}"></xs:pattern>
 		</xs:restriction>
 	</xs:simpleType>
-	
-<xs:complexType name="cliente2">
-		<xs:sequence>
-			<xs:element name="id" type="xs:int"/>
-			<xs:element name="nome" type="xs:string"/>
-			<xs:element name="cognome" type="xs:string"/>
-			<xs:element name="sesso" type="xs:string"/>
-			<xs:element name="cf" type="xs:string"/>
-			<xs:element name="data_di_nascita" type="tns:FormatoData"/>
-			
-			<xs:element name="luogo_di_nascita" type="xs:string"/>
-			<xs:element name="mail" type="xs:string"/>
-			<xs:element name="telefono" type="xs:string"/>
-		</xs:sequence>
-</xs:complexType>
-	
-<xs:complexType name="indirizzo2">
-		<xs:sequence>
-			<xs:element name="id" type="xs:int"/>
-			<xs:element name="luogo" type="xs:string"/>
-			<xs:element name="numero_civico" type="xs:int"/>
-			<xs:element name="citta" type="xs:string"/>
-			<xs:element name="provincia" type="xs:string"/>
-			<xs:element name="regione" type="xs:string"/>
-			<xs:element name="nazione" type="xs:string"/>
-		</xs:sequence>
-</xs:complexType>
 
-
-<xs:element name="createClienteRequest">
-	<xs:complexType>
+	<xs:complexType name="cliente2">
 		<xs:sequence>
-			<xs:element name="cliente" type="tns:cliente2"/>
-			<xs:element name="indirizzo" type="tns:indirizzo2"/>
-			<xs:element name="tipo" type="xs:string"/>
+			<xs:element name="id" type="xs:int" />
+			<xs:element name="nome" type="xs:string" />
+			<xs:element name="cognome" type="xs:string" />
+			<xs:element name="sesso" type="xs:string" />
+			<xs:element name="cf" type="xs:string" />
+			<xs:element name="data_di_nascita" type="tns:FormatoData" />
+
+			<xs:element name="luogo_di_nascita" type="xs:string" />
+			<xs:element name="mail" type="xs:string" />
+			<xs:element name="telefono" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
-</xs:element>
 
-<xs:element name="createClienteResponse">
-	<xs:complexType>
+	<xs:complexType name="indirizzo2">
 		<xs:sequence>
-			<xs:element name="response" type="xs:boolean" />
+			<xs:element name="id" type="xs:int" />
+			<xs:element name="luogo" type="xs:string" />
+			<xs:element name="numero_civico" type="xs:int" />
+			<xs:element name="citta" type="xs:string" />
+			<xs:element name="provincia" type="xs:string" />
+			<xs:element name="regione" type="xs:string" />
+			<xs:element name="nazione" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
-</xs:element>
-
-</xs:schema>
 
 
-	
+	<xs:element name="createClienteRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="cliente" type="tns:cliente2" />
+				<xs:element name="indirizzo" type="tns:indirizzo2" />
+				<xs:element name="tipo" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="createClienteResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="response" type="xs:boolean" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
 	<xs:element name="GetClienteByDettaglioRequest">
-	<xs:complexType>
-            <xs:sequence>
-                <xs:element name="CfCliente" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    
-    
-    <xs:complexType name="ClienteByCf">
-    <xs:sequence>
-    <xs:element name="nome" type="xs:string"/>
-    <xs:element name="cognome" type="xs:string"/>
-    <xs:element name="sesso" type="xs:string"/>
-    <xs:element name="cf" type="xs:string"/>
-    <xs:element name="data_di_nascita" type="xs:date"/>
-    <xs:element name="luogo_di_nascita" type="xs:string"/>
-    <xs:element name="mail" type="xs:string"/>
-    <xs:element name="telefono" type="xs:string"/>
-    </xs:sequence>
-    </xs:complexType>
-        
-    <xs:element name="GetClienteByDettaglioResponse">
-    	<xs:complexType>
-    		<xs:sequence>
-    			<xs:element name="Cliente_Richiesto" type="tns:ClienteByCf" maxOccurs="unbounded" />
-    			
-    		</xs:sequence>
-    	</xs:complexType>
-    </xs:element>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CfCliente" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
 
-<xs:element name="getListaClientiRequest">
-        <xs:complexType>
-            
-        </xs:complexType>
-    </xs:element>
+	<xs:complexType name="ClienteByCf">
+		<xs:sequence>
+			<xs:element name="nome" type="xs:string" />
+			<xs:element name="cognome" type="xs:string" />
+			<xs:element name="sesso" type="xs:string" />
+			<xs:element name="cf" type="xs:string" />
+			<xs:element name="data_di_nascita" type="xs:date" />
+			<xs:element name="luogo_di_nascita" type="xs:string" />
+			<xs:element name="mail" type="xs:string" />
+			<xs:element name="telefono" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
 
-    
-    
-    	<xs:complexType name="cliente">
-    		<xs:sequence>
-    			<xs:element name="nome" type="xs:string" />
-                <xs:element name="cognome" type="xs:string"/>  
-                <xs:element name="sesso" type="xs:string" />
-                <xs:element name="cf" type="xs:string"/>
-                <xs:element name="dataDiNascita" type="xs:string" />
-                <xs:element name="luogoDiNascita" type="xs:string" />
-                <xs:element name="mail" type="xs:string" />
-                <xs:element name="telefono" type="xs:string" />    
-            </xs:sequence>  		
-    	</xs:complexType>
-    
-    
-    
-    <xs:element name="getListaClientiResponse">
-    	<xs:complexType>
-    		<xs:sequence>
-                <xs:element name="i" type="tns:cliente" maxOccurs="unbounded"/>
-            </xs:sequence>  		
-    	</xs:complexType>
-    </xs:element>
+	<xs:element name="GetClienteByDettaglioResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Cliente_Richiesto"
+					type="tns:ClienteByCf" maxOccurs="unbounded" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="getListaClientiRequest">
+		<xs:complexType>
+
+		</xs:complexType>
+	</xs:element>
+
+
+
+	<xs:complexType name="cliente">
+		<xs:sequence>
+			<xs:element name="nome" type="xs:string" />
+			<xs:element name="cognome" type="xs:string" />
+			<xs:element name="sesso" type="xs:string" />
+			<xs:element name="cf" type="xs:string" />
+			<xs:element name="dataDiNascita" type="xs:string" />
+			<xs:element name="luogoDiNascita" type="xs:string" />
+			<xs:element name="mail" type="xs:string" />
+			<xs:element name="telefono" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+
+	<xs:element name="getListaClientiResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="i" type="tns:cliente"
+					maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
 </xs:schema>
