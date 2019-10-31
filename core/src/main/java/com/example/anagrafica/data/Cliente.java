@@ -40,7 +40,7 @@ public class Cliente {
 	
 	private String telefono;
 	
-	private Boolean visibile;
+	private Boolean visibile=true;
 	/*@OneToMany
 	@JoinTable(
 			name="indirizzo_cliente",
