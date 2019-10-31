@@ -86,14 +86,13 @@ public class ClienteService {
 		;
 	}
 	
-	}
 
 	public Optional<Cliente> getById(int id) {
 		Optional<Cliente> clienteById = clienteRepository.findById(id);
 		return clienteById;
 	}
 
-	public Cliente getByCf(String cfCliente) {
+	public Cliente getByCf1(String cfCliente) {
 		return clienteRepository.findByCf(cfCliente).get();
 	}
 }

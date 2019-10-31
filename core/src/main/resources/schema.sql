@@ -27,7 +27,7 @@ create table cliente (
 	luogo_di_nascita varchar(30) NOT NULL,
 	mail varchar(30) NOT NULL,
 	telefono varchar(30) NOT NULL,
-    visibile boolean
+    visibile boolean default true
 ); 
 
 
