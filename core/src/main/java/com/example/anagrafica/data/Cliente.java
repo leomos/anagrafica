@@ -54,6 +54,7 @@ public class Cliente {
 	)
 	private Collection<Indirizzo> indirizzi;*/
 	
+
 	@OneToMany(mappedBy = "cliente", fetch=FetchType.EAGER)
 	private Set<IndirizzoCliente> indirizziClienti;
 	

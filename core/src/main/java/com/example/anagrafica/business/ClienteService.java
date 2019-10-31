@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
+import org.springframework.data.util.Optionals;
 import org.springframework.stereotype.Service;
 
 import com.example.anagrafica.data.Cliente;
@@ -30,11 +30,17 @@ public class ClienteService {
 			IndirizzoCliente indirizzoCliente = null;
 
 			for (String s : indirizzi.keySet()) {
-				indirizzoCliente = new IndirizzoCliente(indirizzi.get(s), clienteSaved, s);
+				
+				Indirizzo l = indirizzi.get(s);
+				indirizzoCliente = new IndirizzoCliente(l, clienteSaved, s);
 				indirizzoClienteRepository.save(indirizzoCliente);
 			}
-			return indirizzoCliente != null;
+			return true;
 		}
+	}
+	
+	public Optional<Cliente> getClienteById(Integer id) {
+		return this.clienteRepository.findById(id);
 	}
 
 	public Collection<Cliente> getAll() {

@@ -2,7 +2,62 @@
 	xmlns:tns="presentation.anagrafica.example.com"
 	targetNamespace="presentation.anagrafica.example.com"
 	elementFormDefault="qualified">
+
+	<xs:simpleType name="FormatoData">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{2}[/]\d{2}[/]\d{4}"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
 	
+<xs:complexType name="cliente2">
+		<xs:sequence>
+			<xs:element name="id" type="xs:int"/>
+			<xs:element name="nome" type="xs:string"/>
+			<xs:element name="cognome" type="xs:string"/>
+			<xs:element name="sesso" type="xs:string"/>
+			<xs:element name="cf" type="xs:string"/>
+			<xs:element name="data_di_nascita" type="tns:FormatoData"/>
+			
+			<xs:element name="luogo_di_nascita" type="xs:string"/>
+			<xs:element name="mail" type="xs:string"/>
+			<xs:element name="telefono" type="xs:string"/>
+		</xs:sequence>
+</xs:complexType>
+	
+<xs:complexType name="indirizzo2">
+		<xs:sequence>
+			<xs:element name="id" type="xs:int"/>
+			<xs:element name="luogo" type="xs:string"/>
+			<xs:element name="numero_civico" type="xs:int"/>
+			<xs:element name="citta" type="xs:string"/>
+			<xs:element name="provincia" type="xs:string"/>
+			<xs:element name="regione" type="xs:string"/>
+			<xs:element name="nazione" type="xs:string"/>
+		</xs:sequence>
+</xs:complexType>
+
+
+<xs:element name="createClienteRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="cliente" type="tns:cliente2"/>
+			<xs:element name="indirizzo" type="tns:indirizzo2"/>
+			<xs:element name="tipo" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="createClienteResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="response" type="xs:boolean" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+</xs:schema>
+
+
 	
 	<xs:element name="GetClienteByDettaglioRequest">
 	<xs:complexType>
