@@ -11,6 +11,7 @@ import com.example.anagrafica.Utils.MetodiUtili;
 import com.example.anagrafica.business.ClienteService;
 import com.example.anagrafica.data.Cliente;
 import com.example.anagrafica.data.ClienteRepository;
+import com.example.anagrafica.data.IndirizzoCliente;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -129,6 +130,33 @@ public class ClienteEndpoint {
 				CCli.remove(c);
 			}
 		};
+
+	
+			if(!request.getClienteX2().getProvinciaDiResidenza().isEmpty()) {
+				boolean bic= false;
+				for (IndirizzoCliente ic:c.getIndirizziClienti()) {
+				if(ic.getIndirizzo().getProvincia().equalsIgnoreCase(request.getClienteX2().getProvinciaDiResidenza())){
+					bic=true;
+				};
+				
+				};
+				if(bic==false) {
+					CCli.remove(c);
+				}
+			};
+			if(!request.getClienteX2().getRegioneDiResidenza().isEmpty()) {
+				boolean bic= false;
+				for (IndirizzoCliente ic:c.getIndirizziClienti()) {
+				if(ic.getIndirizzo().getRegione().equalsIgnoreCase(request.getClienteX2().getRegioneDiResidenza())){
+					bic=true;
+				};
+				
+				};
+				if(bic==false) {
+					CCli.remove(c);
+				}
+			};
+			
 		
 	}
 		
