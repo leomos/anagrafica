@@ -5,6 +5,8 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+
+import com.example.anagrafica.Utils.MetodiUtili;
 import com.example.anagrafica.business.ClienteService;
 import com.example.anagrafica.data.Cliente;
 import com.example.anagrafica.data.ClienteRepository;
@@ -22,12 +24,19 @@ public class ClienteEndpoint {
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "postModificaClienteRequest")
 	@ResponsePayload
 	public PostModificaClienteResponse postModificaCliente(@RequestPayload PostModificaClienteRequest request)
+			
+			
+			
+			
 			throws Exception {
 		System.out.println(request.getClienteX().getIdCliente());
 		String risposta = "";
+		
+		MetodiUtili mt=new MetodiUtili();
+		
 		Cliente cli = new Cliente(request.getClienteX().getNome(), request.getClienteX().getCognome(),
 				request.getClienteX().getSesso().charAt(0), request.getClienteX().getCf(),
-				dataCreator(request.getClienteX().getDataDiNascita()), request.getClienteX().getLuogoDiNascita(),
+				mt.dataCreator(request.getClienteX().getDataDiNascita()), request.getClienteX().getLuogoDiNascita(),
 				request.getClienteX().getMail(), request.getClienteX().getTelefono());
 		cli.setId(request.getClienteX().getIdCliente());
 
@@ -46,11 +55,5 @@ public class ClienteEndpoint {
 		return response;
 	}
 
-	public Date dataCreator(String args) throws Exception {
-
-		Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(args);
-
-		return date1;
-	}
-
+	
 }
