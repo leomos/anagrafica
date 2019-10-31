@@ -1,7 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:tns="presentation.anagrafica.example.com"
 	targetNamespace="presentation.anagrafica.example.com"
 	elementFormDefault="qualified">
+
+<xs:complexType name="clienteX">
+	<xs:sequence>
+		<xs:element name="idCliente" type="xs:int" />
+		<xs:element name="nome" type="xs:string" />
+		<xs:element name="cognome" type="xs:string" />
+		<xs:element name="sesso" type="tns:character"   />
+		<xs:element name="cf" type="xs:string" />
+		<xs:element name="dataDiNascita" type="tns:ModDate" />
+		<xs:element name="luogoDiNascita" type="xs:string" />
+		<xs:element name="mail" type="xs:string" />
+		<xs:element name="telefono" type="xs:string" />
+
+	</xs:sequence>
+</xs:complexType>
+
+
+
+    <xs:simpleType name="ModDate">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{2}[/]\d{2}[/]\d{4}"></xs:pattern>
+            <xs:length value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+
+<xs:simpleType name="character" >
+<xs:restriction base="xs:string">
+<xs:length fixed="true" value="1" />
+</xs:restriction>
+
+
+</xs:simpleType>
+
+
+
+<xs:element name="postModificaClienteRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="clienteX" type="tns:clienteX" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+
+
+<xs:element name="postModificaClienteResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="risposta" type="xs:string"
+				 />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+<xs:element name="getListaFiltrataRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="clienteX2" type="tns:clienteX2"  />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+
+
+<xs:element name="getListaFiltrataResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="clienteX" type="tns:clienteX" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+<xs:complexType name="clienteX2">
+	<xs:sequence>
+		
+		<xs:element name="nome" type="xs:string" />
+		<xs:element name="cognome" type="xs:string" />
+		<xs:element name="sesso" type="tns:character"   />
+		<xs:element name="cf" type="xs:string" />
+		<xs:element name="dataIniziale" type="tns:ModDate" default = "01/01/0001" />
+		<xs:element name="dataFinale" type="tns:ModDate" default = "01/12/9999" />
+		<xs:element name="ProvinciaDiResidenza" type="xs:string" />
+	<xs:element name="RegioneDiResidenza" type="xs:string" />
+	
+	</xs:sequence>
+</xs:complexType>
 
 	<xs:simpleType name="FormatoData">
 		<xs:restriction base="xs:string">
