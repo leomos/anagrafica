@@ -4,6 +4,11 @@
 	targetNamespace="presentation.anagrafica.example.com"
 	elementFormDefault="qualified">
 
+	<xs:element name="getClientiVisibiliRequest">
+		<xs:complexType>
+		</xs:complexType>
+	</xs:element>
+
 <xs:complexType name="clienteX">
 	<xs:sequence>
 		<xs:element name="idCliente" type="xs:int" />
@@ -110,12 +115,42 @@
 			<xs:element name="sesso" type="xs:string" />
 			<xs:element name="cf" type="xs:string" />
 			<xs:element name="data_di_nascita" type="tns:FormatoData" />
-
 			<xs:element name="luogo_di_nascita" type="xs:string" />
 			<xs:element name="mail" type="xs:string" />
 			<xs:element name="telefono" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
+      
+      
+	<xs:element name="getClientiVisibiliResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ClientiVisibili" type="tns:Cliente" maxOccurs="unbounded"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="deleteClienteByIdRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="idCliente" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<xs:element name="deleteClienteByCfRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="cfCliente" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getDeletedClienteResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ClienteVisibile" type="xs:boolean"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
 	<xs:complexType name="indirizzo2">
 		<xs:sequence>

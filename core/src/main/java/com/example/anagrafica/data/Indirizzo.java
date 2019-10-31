@@ -1,9 +1,11 @@
 package com.example.anagrafica.data;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +37,7 @@ public class Indirizzo {
 	
 	private String nazione;
 	
-	@OneToMany(mappedBy="indirizzo")
+	@OneToMany(mappedBy="indirizzo",fetch=FetchType.EAGER)
 	Set<IndirizzoCliente> indirizziClienti;
 	
 	public Indirizzo(String luogo, 

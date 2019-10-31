@@ -40,20 +40,16 @@ public class Cliente {
 	
 	private String telefono;
 	
-	/*@OneToMany
-	@JoinTable(
-			name="indirizzo_cliente",
-			joinColumns = @JoinColumn(
-	                name = "id_cliente",
-	                referencedColumnName = "id"
-	        ),
-	        inverseJoinColumns = @JoinColumn(
-	                name = "id_indirizzo",
-	                referencedColumnName = "id"
-	        )
-	)
-	private Collection<Indirizzo> indirizzi;*/
+	private Boolean visibile=true;
 	
+	public Boolean isVisibile() {
+		return visibile;
+	}
+
+	public void setVisibile(Boolean visibile) {
+		this.visibile = visibile;
+	}
+
 	@OneToMany(mappedBy = "cliente", fetch=FetchType.EAGER)
 	private Set<IndirizzoCliente> indirizziClienti;
 	
@@ -161,15 +157,6 @@ public class Cliente {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-
-	/*
-	public Collection<Indirizzo> getIndirizzi() {
-		return indirizzi;
-	}
-
-	public void setIndirizzi(Collection<Indirizzo> indirizzi) {
-		this.indirizzi = indirizzi;
-	}*/
 
 	public Set<IndirizzoCliente> getIndirizziClienti() {
 		return indirizziClienti;

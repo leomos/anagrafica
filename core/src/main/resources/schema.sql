@@ -26,7 +26,8 @@ create table cliente (
 	data_di_nascita date NOT NULL,
 	luogo_di_nascita varchar(30) NOT NULL,
 	mail varchar(30) NOT NULL,
-	telefono varchar(30) NOT NULL
+	telefono varchar(30) NOT NULL,
+    visibile boolean
 ); 
 
 

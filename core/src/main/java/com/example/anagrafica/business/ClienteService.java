@@ -49,6 +49,11 @@ public class ClienteService {
 		return (Collection<Cliente>) this.clienteRepository.findAll();
 	}
 
+	public Optional<Cliente> getByCf(String string) {
+		return this.clienteRepository.findByCf(string);
+	}
+
+
 	public Boolean update(Cliente entity) {
 		if (clienteRepository.existsById(entity.getId())) {
 			Cliente savedCliente = this.clienteRepository.save(entity);
@@ -57,6 +62,19 @@ public class ClienteService {
 			return false;
 		}
   }
+  
+	public Boolean deleteLogical(Cliente entity) {
+		if(entity.isVisibile()) {entity.setVisibile(false);}
+		this.clienteRepository.save(entity);
+		return entity.isVisibile();
+	}
+
+	public Optional<Cliente> getVisibile(Integer id) {
+		return this.clienteRepository.findByIdAndVisibileTrue(id);
+	}
+	 public Collection<Cliente> getAllVisibile() {
+			return (Collection<Cliente>) this.clienteRepository.findAllByVisibileTrue();
+		}
 	
 	
 	public Optional<Cliente> get(Integer id) {
