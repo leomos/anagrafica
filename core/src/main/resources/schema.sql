@@ -21,7 +21,7 @@ create table cliente (
 	id integer auto_increment primary key,
 	nome varchar(30) NOT NULL,
 	cognome varchar(50) NOT NULL,
-	sesso char(1) check (value in ("f","m") ),
+	sesso char(1),
 	cf char(16) unique not null ,
 	data_di_nascita date NOT NULL,
 	luogo_di_nascita varchar(30) NOT NULL,
