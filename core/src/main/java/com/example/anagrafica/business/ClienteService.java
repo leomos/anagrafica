@@ -82,14 +82,16 @@ public class ClienteService {
 
 		Collection<Cliente> CCli = this.getAll();
 		System.out.println(CCli.toString());
+		ArrayList<Cliente> nCCli = new ArrayList<Cliente>();
 		
-		ArrayList<Cliente> nCCli=new ArrayList<Cliente>();
 		for (Cliente c : CCli) {
+			
+			boolean b=false;
 			if (!clienteFilter.getNome().isEmpty()) {
 				System.out.println(clienteFilter.getNome());
 				System.out.println(c.getNome());
-				if (c.getNome().equalsIgnoreCase(clienteFilter.getNome())) {
-					nCCli.add(c);
+				if (!c.getNome().equalsIgnoreCase(clienteFilter.getNome())) {
+					b=true;
 				}
 				;
 
@@ -97,24 +99,24 @@ public class ClienteService {
 			;
 
 			if (!clienteFilter.getCognome().isEmpty()) {
-				if (c.getCognome().equalsIgnoreCase(clienteFilter.getCognome())) {
-					nCCli.add(c);
+				if (!c.getCognome().equalsIgnoreCase(clienteFilter.getCognome())) {
+					b=true;
 				}
 				;
 
 			}
 			;
 			if (!clienteFilter.getSesso().isEmpty()) {
-				if (c.getSesso().toString().equalsIgnoreCase(clienteFilter.getSesso())) {
-					nCCli.add(c);
+				if (!c.getSesso().toString().equalsIgnoreCase(clienteFilter.getSesso())) {
+					b=true;
 				}
 				;
 
 			}
 			;
 			if (!clienteFilter.getCf().isEmpty()) {
-				if (c.getCf().equalsIgnoreCase(clienteFilter.getCf())) {
-					nCCli.add(c);
+				if (!c.getCf().equalsIgnoreCase(clienteFilter.getCf())) {
+					b=true;
 				}
 				;
 
@@ -122,48 +124,55 @@ public class ClienteService {
 			;
 
 			if (!clienteFilter.getDataIniziale().isEmpty()) {
-				if (c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataIniziale())) >= 0) {
-					nCCli.add(c);
+				if (c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataIniziale())) < 0) {
+					b=true;
 				}
 			}
 			;
 			if (!clienteFilter.getDataFinale().isEmpty()) {
-				if (c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataFinale())) <= 0) {
-					nCCli.add(c);
+				if (c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataFinale())) > 0) {
+					b=true;
 				}
 			}
 			;
 			if (!clienteFilter.getProvinciaDiResidenza().isEmpty()) {
 				boolean bic = false;
 				for (IndirizzoCliente ic : c.getIndirizziClienti()) {
-					if (ic.getIndirizzo().getProvincia().equalsIgnoreCase(clienteFilter.getProvinciaDiResidenza())) {
+					if (ic.getIndirizzo().getProvincia().equalsIgnoreCase(clienteFilter.getProvinciaDiResidenza())&& ic.getId().getTipo().equalsIgnoreCase("residenza")) {
 						bic = true;
 					}
 					;
 
 				}
 				;
-				if (bic == true) {
-					nCCli.add(c);
+				if (bic == false) {
+					b=true;
 				}
 			}
 			;
 			if (!clienteFilter.getRegioneDiResidenza().isEmpty()) {
 				boolean bic = false;
 				for (IndirizzoCliente ic : c.getIndirizziClienti()) {
-					if (ic.getIndirizzo().getRegione().equalsIgnoreCase(clienteFilter.getRegioneDiResidenza())) {
+					if (ic.getIndirizzo().getRegione().equalsIgnoreCase(clienteFilter.getRegioneDiResidenza()) && ic.getId().getTipo().equalsIgnoreCase("residenza")) {
 						bic = true;
 					}
 					;
 
 				}
 				;
-				if (bic == true) {
-					nCCli.add(c);
+				if (bic == false) {
+					b=true;
 				}
 			}
 			;
+	
+		if(false==b) {nCCli.add(c);
+			
 		}
+	
+		
+		}
+	
 		return nCCli;
 
 	}
