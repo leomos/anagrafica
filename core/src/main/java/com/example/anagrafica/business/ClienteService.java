@@ -80,7 +80,7 @@ public class ClienteService {
 
 		Utils mt = new Utils();
 
-		Collection<Cliente> CCli = this.getAll();
+		Collection<Cliente> CCli = this.getAllVisibile(true);
 		System.out.println(CCli.toString());
 		ArrayList<Cliente> nCCli = new ArrayList<Cliente>();
 		
