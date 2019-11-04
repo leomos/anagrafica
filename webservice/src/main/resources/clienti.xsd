@@ -33,6 +33,19 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+<xs:complexType name="clienteX">
+	<xs:sequence>
+		<xs:element name="idCliente" type="xs:integer" />
+		<xs:element name="nome" type="xs:string" />
+		<xs:element name="cognome" type="xs:string" />
+		<xs:element name="sesso" type="tns:character"   />
+		<xs:element name="cf" type="xs:string" />
+		<xs:element name="dataDiNascita" type="tns:ModDate" />
+		<xs:element name="luogoDiNascita" type="xs:string" />
+		<xs:element name="mail" type="xs:string" />
+		<xs:element name="telefono" type="xs:string" />
+  </xs:sequence>
+  </xs:complexType>
 
 
 	<xs:simpleType name="character">

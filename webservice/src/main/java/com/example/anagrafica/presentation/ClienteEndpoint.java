@@ -30,10 +30,12 @@ import com.example.anagrafica.data.Cliente;
 import com.example.anagrafica.data.ClienteRepository;
 import com.example.anagrafica.data.IndirizzoCliente;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.anagrafica.business.*;
 import com.example.anagrafica.business.ClienteService;
@@ -109,27 +111,42 @@ public class ClienteEndpoint {
 			
 			throws Exception {
 		System.out.println(request.getClienteX().getIdCliente());
-		String risposta = "";
 		
-		Utils mt=new Utils();
+    Utils mt=new Utils();		
+    Character c =  'c';
+		if(!request.getClienteX().getSesso().isEmpty()) {
+		 c=request.getClienteX().getSesso().charAt(0);
+		};
+		System.out.println("nnn");
+		
+		
+		Date dataCli= new Date();
+		if(!request.getClienteX().getDataDiNascita().isEmpty()) {
+			dataCli=mt.dataCreator(request.getClienteX().getDataDiNascita());
+		} 
+		
 		
 		Cliente cli = new Cliente(request.getClienteX().getNome(), request.getClienteX().getCognome(),
-				request.getClienteX().getSesso().charAt(0), request.getClienteX().getCf(),
-				mt.dataCreator(request.getClienteX().getDataDiNascita()), request.getClienteX().getLuogoDiNascita(),
+				c, request.getClienteX().getCf(),
+			dataCli	, request.getClienteX().getLuogoDiNascita(),
 				request.getClienteX().getMail(), request.getClienteX().getTelefono());
-		cli.setId(request.getClienteX().getIdCliente());
+	
+	
 
-		if (clienteService.update(
-
-				cli)) {
-
-			risposta += "cliente modificato";
-
-		} else {
-			risposta += "cliente da modificare non trovato";
-		}
-
-		
+		Cliente clibase= new Cliente();
+				
+				
+			if(Optional.ofNullable(request.getClienteX().idCliente  ).isPresent()) {
+			
+			clibase=	clienteService.get(request.getClienteX().getIdCliente().intValue()).get();
+			cli.setId(request.getClienteX().getIdCliente().intValue());
+			}
+			else if(!request.getClienteX().getCf().isEmpty()){
+			
+				clibase=clienteService.getByCf(request.getClienteX().getCf()).get();
+				cli.setId(clibase.getId());};
+			
+		String risposta= clienteService.update(cli, clibase);
 		
 		PostModificaClienteResponse response = new PostModificaClienteResponse();
 		response.setRisposta(risposta);
@@ -162,6 +179,34 @@ public class ClienteEndpoint {
 	
 		Collection<Cliente> CCli=clienteService.findWithFilter(cf); 
 	
+			if(!request.getClienteX2().getProvinciaDiResidenza().isEmpty()) {
+				boolean bic= false;
+				for (IndirizzoCliente ic:c.getIndirizziClienti()) {
+				if(ic.getIndirizzo().getProvincia().equalsIgnoreCase(request.getClienteX2().getProvinciaDiResidenza()))
+				{
+					bic=true;
+				};
+				
+				};
+				if(bic==false) {
+					CCli.remove(c);
+				}
+			};
+			if(!request.getClienteX2().getRegioneDiResidenza().isEmpty()) {
+				boolean bic= false;
+				for (IndirizzoCliente ic:c.getIndirizziClienti()) {
+				if(ic.getIndirizzo().getRegione().equalsIgnoreCase(request.getClienteX2().getRegioneDiResidenza())){
+					bic=true;
+				};
+				
+				};
+				if(bic==false) {
+					CCli.remove(c);
+				}
+			};
+			
+		
+	}
 		
 	
 	
@@ -173,7 +218,7 @@ public class ClienteEndpoint {
 			x2.setCognome(c.getCognome());
 			x2.setCf(c.getCf());
 			x2.setDataDiNascita(c.getDataDiNascita().toString());
-			x2.setIdCliente(c.getId());
+			x2.setIdCliente(BigInteger.valueOf(c.getId()));
 			x2.setLuogoDiNascita(c.getLuogoDiNascita());
 			x2.setMail(c.getMail());
 			x2.setSesso(c.getSesso().toString());
