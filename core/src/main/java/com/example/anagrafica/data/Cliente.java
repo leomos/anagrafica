@@ -2,6 +2,7 @@ package com.example.anagrafica.data;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -66,6 +67,7 @@ public class Cliente {
 		this.luogoDiNascita = luogoDiNascita;
 		this.mail = mail;
 		this.telefono = telefono;
+		this.indirizziClienti=new HashSet<IndirizzoCliente>();
 	}
 	
 	public Cliente(String nome, String cognome, Character sesso, String cf, Date dataDiNascita,
@@ -80,7 +82,7 @@ public class Cliente {
 		this.luogoDiNascita = luogoDiNascita;
 		this.mail = mail;
 		this.telefono = telefono;
-		
+		this.indirizziClienti=new HashSet<IndirizzoCliente>();
 		Indirizzo residenza = indirizzi.get("residenza");
 		
 	}
