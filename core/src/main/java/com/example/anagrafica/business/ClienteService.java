@@ -1,5 +1,6 @@
 package com.example.anagrafica.business;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ClienteService {
 			IndirizzoCliente indirizzoCliente = null;
 
 			for (String s : indirizzi.keySet()) {
-				
+
 				Indirizzo l = indirizzi.get(s);
 				indirizzoCliente = new IndirizzoCliente(l, clienteSaved, s);
 				indirizzoClienteRepository.save(indirizzoCliente);
@@ -41,7 +42,7 @@ public class ClienteService {
 			return true;
 		}
 	}
-	
+
 	public Collection<Cliente> getAll() {
 		return this.getAllVisibile(true);
 	}
@@ -57,95 +58,114 @@ public class ClienteService {
 		} else {
 			return false;
 		}
-  }
-  
+	}
+
 	public Boolean deleteLogical(Cliente entity) {
-		if(entity.isVisibile()) {entity.setVisibile(false);}
+		if (entity.isVisibile()) {
+			entity.setVisibile(false);
+		}
 		this.clienteRepository.save(entity);
 		return entity.isVisibile();
 	}
 
 	public Collection<Cliente> getAllVisibile(boolean visibile) {
-		 return (Collection<Cliente>) this.clienteRepository.findAllByVisibile(visibile);
+		return (Collection<Cliente>) this.clienteRepository.findAllByVisibile(visibile);
 	}
-	
+
 	public Optional<Cliente> get(Integer id) {
 		return this.clienteRepository.findById(id);
-	}	
-	
-	public Collection<Cliente> findWithFilter(ClienteFilter  clienteFilter) throws Exception{
-		
-		
-		Utils mt=new Utils();
-	
-		Collection<Cliente> CCli =	this.getAll();
+	}
+
+	public Collection<Cliente> findWithFilter(ClienteFilter clienteFilter) throws Exception {
+
+		Utils mt = new Utils();
+
+		Collection<Cliente> CCli = this.getAll();
 		System.out.println(CCli.toString());
 		
-		for(Cliente c:CCli) {
-			if(! clienteFilter.getNome().isEmpty()) {
-				if(!c.getNome().equalsIgnoreCase( clienteFilter.getNome())) {
-					CCli.remove(c);
-				};
-				
-			};
-			
-			if(! clienteFilter.getCognome().isEmpty()) {
-				if(!c.getCognome().equalsIgnoreCase( clienteFilter.getCognome())) {
-					CCli.remove(c);
-				};
-				
-			};
-			if(!clienteFilter.getSesso().isEmpty()) {
-				if(!c.getSesso().toString().equalsIgnoreCase(clienteFilter.getSesso())) {
-					CCli.remove(c);
-				};
-				
-			};
-			if(!clienteFilter.getCf().isEmpty()) {
-				if(!c.getCf().equalsIgnoreCase(clienteFilter.getCf())) {
-					CCli.remove(c);
-				};
-				
-			};
-		
-				
-			
-			if(!clienteFilter.getDataIniziale().isEmpty()) {
-				if(c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataIniziale()))<0) {
-					CCli.remove(c);
+		ArrayList<Cliente> nCCli=new ArrayList<Cliente>();
+		for (Cliente c : CCli) {
+			if (!clienteFilter.getNome().isEmpty()) {
+				System.out.println(clienteFilter.getNome());
+				System.out.println(c.getNome());
+				if (c.getNome().equalsIgnoreCase(clienteFilter.getNome())) {
+					nCCli.add(c);
 				}
-			};
-			if(!clienteFilter.getDataFinale().isEmpty()) {
-				if(c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataFinale()))>0) {
-					CCli.remove(c);
+				;
+
+			}
+			;
+
+			if (!clienteFilter.getCognome().isEmpty()) {
+				if (c.getCognome().equalsIgnoreCase(clienteFilter.getCognome())) {
+					nCCli.add(c);
 				}
-			};
-				if(!clienteFilter.getProvinciaDiResidenza().isEmpty()) {
-					boolean bic= false;
-					for (IndirizzoCliente ic:c.getIndirizziClienti()) {
-					if(ic.getIndirizzo().getProvincia().equalsIgnoreCase(clienteFilter.getProvinciaDiResidenza())){
-						bic=true;
-					};
-					
-					};
-					if(bic==false) {
-						CCli.remove(c);
+				;
+
+			}
+			;
+			if (!clienteFilter.getSesso().isEmpty()) {
+				if (c.getSesso().toString().equalsIgnoreCase(clienteFilter.getSesso())) {
+					nCCli.add(c);
+				}
+				;
+
+			}
+			;
+			if (!clienteFilter.getCf().isEmpty()) {
+				if (c.getCf().equalsIgnoreCase(clienteFilter.getCf())) {
+					nCCli.add(c);
+				}
+				;
+
+			}
+			;
+
+			if (!clienteFilter.getDataIniziale().isEmpty()) {
+				if (c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataIniziale())) >= 0) {
+					nCCli.add(c);
+				}
+			}
+			;
+			if (!clienteFilter.getDataFinale().isEmpty()) {
+				if (c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataFinale())) <= 0) {
+					nCCli.add(c);
+				}
+			}
+			;
+			if (!clienteFilter.getProvinciaDiResidenza().isEmpty()) {
+				boolean bic = false;
+				for (IndirizzoCliente ic : c.getIndirizziClienti()) {
+					if (ic.getIndirizzo().getProvincia().equalsIgnoreCase(clienteFilter.getProvinciaDiResidenza())) {
+						bic = true;
 					}
-				};
-				if(!clienteFilter.getRegioneDiResidenza().isEmpty()) {
-					boolean bic= false;
-					for (IndirizzoCliente ic:c.getIndirizziClienti()) {
-					if(ic.getIndirizzo().getRegione().equalsIgnoreCase(clienteFilter.getRegioneDiResidenza())){
-						bic=true;
-					};
-					
-					};
-					if(bic==false) {
-						CCli.remove(c);
+					;
+
+				}
+				;
+				if (bic == true) {
+					nCCli.add(c);
+				}
+			}
+			;
+			if (!clienteFilter.getRegioneDiResidenza().isEmpty()) {
+				boolean bic = false;
+				for (IndirizzoCliente ic : c.getIndirizziClienti()) {
+					if (ic.getIndirizzo().getRegione().equalsIgnoreCase(clienteFilter.getRegioneDiResidenza())) {
+						bic = true;
 					}
-				};}
-		return CCli;
-				
+					;
+
+				}
+				;
+				if (bic == true) {
+					nCCli.add(c);
+				}
+			}
+			;
+		}
+		return nCCli;
+
 	}
-	
+
 }
