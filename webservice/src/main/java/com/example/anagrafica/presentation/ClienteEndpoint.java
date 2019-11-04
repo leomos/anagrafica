@@ -150,84 +150,20 @@ public class ClienteEndpoint {
 		
 		System.out.println(request.getClienteX2().toString());
 	
+		ClienteFilter cf=new ClienteFilter(request.getClienteX2().getNome(),
+				request.getClienteX2().getCognome(), 
+				request.getClienteX2().getSesso(),
+				request.getClienteX2().getCf(), 
+				request.getClienteX2().getDataIniziale(), 
+				request.getClienteX2().getDataFinale(), 
+				request.getClienteX2().getProvinciaDiResidenza(), 
+				request.getClienteX2().getRegioneDiResidenza());
 		
-		
-	Collection<Cliente> CCli =	clienteService.getAll();
-	System.out.println(CCli.toString());
 	
-	for(Cliente c:CCli) {
-		if(!request.getClienteX2().getNome().isEmpty()) {
-			if(!c.getNome().equalsIgnoreCase(request.getClienteX2().getNome())) {
-				CCli.remove(c);
-			};
-			
-		};
-		
-		if(!request.getClienteX2().getCognome().isEmpty()) {
-			if(!c.getCognome().equalsIgnoreCase(request.getClienteX2().getCognome())) {
-				CCli.remove(c);
-			};
-			
-		};
-		if(!request.getClienteX2().getSesso().isEmpty()) {
-			if(!c.getSesso().toString().equalsIgnoreCase(request.getClienteX2().getSesso())) {
-				CCli.remove(c);
-			};
-			
-		};
-		if(!request.getClienteX2().getCf().isEmpty()) {
-			if(!c.getCf().equalsIgnoreCase(request.getClienteX2().getCf())) {
-				CCli.remove(c);
-			};
-			
-		};
-		if(!request.getClienteX2().getCf().isEmpty()) {
-			if(!c.getCf().equalsIgnoreCase(request.getClienteX2().getCf())) {
-				CCli.remove(c);
-			};
-			
-		};
-		if(!request.getClienteX2().getDataIniziale().isEmpty()) {
-			if(c.getDataDiNascita().compareTo(mt.dataCreator(request.getClienteX2().getDataIniziale()))<0) {
-				CCli.remove(c);
-			}
-		};
-		if(!request.getClienteX2().getDataFinale().isEmpty()) {
-			if(c.getDataDiNascita().compareTo(mt.dataCreator(request.getClienteX2().getDataFinale()))>0) {
-				CCli.remove(c);
-			}
-		};
-
+		Collection<Cliente> CCli=clienteService.findWithFilter(cf); 
 	
-			if(!request.getClienteX2().getProvinciaDiResidenza().isEmpty()) {
-				boolean bic= false;
-				for (IndirizzoCliente ic:c.getIndirizziClienti()) {
-				if(ic.getIndirizzo().getProvincia().equalsIgnoreCase(request.getClienteX2().getProvinciaDiResidenza())){
-					bic=true;
-				};
-				
-				};
-				if(bic==false) {
-					CCli.remove(c);
-				}
-			};
-			if(!request.getClienteX2().getRegioneDiResidenza().isEmpty()) {
-				boolean bic= false;
-				for (IndirizzoCliente ic:c.getIndirizziClienti()) {
-				if(ic.getIndirizzo().getRegione().equalsIgnoreCase(request.getClienteX2().getRegioneDiResidenza())){
-					bic=true;
-				};
-				
-				};
-				if(bic==false) {
-					CCli.remove(c);
-				}
-			};
-			
 		
-	}
-		
-	System.out.println("222222"+CCli.toString());
+	
 	
 		for (Cliente c: CCli) {
 			
