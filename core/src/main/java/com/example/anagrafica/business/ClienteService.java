@@ -15,6 +15,7 @@ import com.example.anagrafica.data.ClienteRepository;
 import com.example.anagrafica.data.Indirizzo;
 import com.example.anagrafica.data.IndirizzoCliente;
 import com.example.anagrafica.data.IndirizzoClienteRepository;
+import com.example.anagrafica.utils.Utils;
 
 @Service
 public class ClienteService {
@@ -95,4 +96,86 @@ public class ClienteService {
 	public Cliente getByCf1(String cfCliente) {
 		return clienteRepository.findByCf(cfCliente).get();
 	}
+	
+	
+	public Collection<Cliente> findWithFilter(ClienteFilter  clienteFilter) throws Exception{
+		
+		
+		Utils mt=new Utils();
+	
+		Collection<Cliente> CCli =	this.getAll();
+		System.out.println(CCli.toString());
+		
+		for(Cliente c:CCli) {
+			if(! clienteFilter.getNome().isEmpty()) {
+				if(!c.getNome().equalsIgnoreCase( clienteFilter.getNome())) {
+					CCli.remove(c);
+				};
+				
+			};
+			
+			if(! clienteFilter.getCognome().isEmpty()) {
+				if(!c.getCognome().equalsIgnoreCase( clienteFilter.getCognome())) {
+					CCli.remove(c);
+				};
+				
+			};
+			if(!clienteFilter.getSesso().isEmpty()) {
+				if(!c.getSesso().toString().equalsIgnoreCase(clienteFilter.getSesso())) {
+					CCli.remove(c);
+				};
+				
+			};
+			if(!clienteFilter.getCf().isEmpty()) {
+				if(!c.getCf().equalsIgnoreCase(clienteFilter.getCf())) {
+					CCli.remove(c);
+				};
+				
+			};
+		
+				
+			
+			if(!clienteFilter.getDataIniziale().isEmpty()) {
+				if(c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataIniziale()))<0) {
+					CCli.remove(c);
+				}
+			};
+			if(!clienteFilter.getDataFinale().isEmpty()) {
+				if(c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataFinale()))>0) {
+					CCli.remove(c);
+				}
+			};
+
+		
+				if(!clienteFilter.getProvinciaDiResidenza().isEmpty()) {
+					boolean bic= false;
+					for (IndirizzoCliente ic:c.getIndirizziClienti()) {
+					if(ic.getIndirizzo().getProvincia().equalsIgnoreCase(clienteFilter.getProvinciaDiResidenza())){
+						bic=true;
+					};
+					
+					};
+					if(bic==false) {
+						CCli.remove(c);
+					}
+				};
+				if(!clienteFilter.getRegioneDiResidenza().isEmpty()) {
+					boolean bic= false;
+					for (IndirizzoCliente ic:c.getIndirizziClienti()) {
+					if(ic.getIndirizzo().getRegione().equalsIgnoreCase(clienteFilter.getRegioneDiResidenza())){
+						bic=true;
+					};
+					
+					};
+					if(bic==false) {
+						CCli.remove(c);
+					}
+				};}
+		return CCli;
+				
+	}
+	
+	
+	
+	
 }
