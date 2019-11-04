@@ -46,11 +46,11 @@ public class ClienteService {
 	}
 
 	public Collection<Cliente> getAll() {
-		return (Collection<Cliente>) this.clienteRepository.findAll();
+		return this.getAllVisibile(true);
 	}
 
-	public Optional<Cliente> getByCf(String cf) {
-		return this.clienteRepository.findByCf(cf);
+	public Optional<Cliente> getByCf(String string) {
+		return this.clienteRepository.findByCf(string);
 	}
 
 
@@ -65,20 +65,16 @@ public class ClienteService {
   
 	public Boolean deleteLogical(Cliente entity) {
 		if(entity.isVisibile()) {entity.setVisibile(false);}
-		this.update(entity);
+		this.clienteRepository.save(entity);
 		return entity.isVisibile();
-	}
-	public Boolean delete(Cliente entity) {
-		this.clienteRepository.delete(entity);
-		return false;
 	}
 
 	public Optional<Cliente> getVisibile(Integer id) {
 		return this.clienteRepository.findByIdAndVisibileTrue(id);
 	}
-	 public Collection<Cliente> getAllVisibile(boolean visibile) {
-		 	return (Collection<Cliente>) this.clienteRepository.findAllByVisibileTrue(visibile);
-		}
+	public Collection<Cliente> getAllVisibile(boolean visibile) {
+		 return (Collection<Cliente>) this.clienteRepository.findAllByVisibileTrue(visibile);
+	}
 	
 	
 	public Optional<Cliente> get(Integer id) {
@@ -96,4 +92,7 @@ public class ClienteService {
 		return clienteById;
 	}
 
+	public Cliente getByCf1(String cfCliente) {
+		return clienteRepository.findByCf(cfCliente).get();
+	}
 }
