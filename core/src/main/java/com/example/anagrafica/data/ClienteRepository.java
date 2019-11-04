@@ -13,8 +13,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	
 	boolean existsByCf(String cf);
 	Optional<Cliente> findByIdAndVisibileTrue(int id);
-	List<Cliente> findAllByVisibileTrue();
+	List<Cliente> findAllByVisibileTrue(boolean visibile);
 
 	Optional<Cliente> findByCf(String cfCliente);
+	
+	
 	
 }
