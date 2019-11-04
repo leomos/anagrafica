@@ -2,11 +2,13 @@ package com.example.anagrafica.data;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,21 +41,17 @@ public class Cliente {
 	
 	private String telefono;
 	
-	/*@OneToMany
-	@JoinTable(
-			name="indirizzo_cliente",
-			joinColumns = @JoinColumn(
-	                name = "id_cliente",
-	                referencedColumnName = "id"
-	        ),
-	        inverseJoinColumns = @JoinColumn(
-	                name = "id_indirizzo",
-	                referencedColumnName = "id"
-	        )
-	)
-	private Collection<Indirizzo> indirizzi;*/
+	private Boolean visibile=true;
 	
-	@OneToMany(mappedBy = "cliente")
+	public Boolean isVisibile() {
+		return visibile;
+	}
+
+	public void setVisibile(Boolean visibile) {
+		this.visibile = visibile;
+	}
+
+	@OneToMany(mappedBy = "cliente", fetch=FetchType.EAGER)
 	private Set<IndirizzoCliente> indirizziClienti;
 	
 	public Cliente() {}
@@ -69,6 +67,7 @@ public class Cliente {
 		this.luogoDiNascita = luogoDiNascita;
 		this.mail = mail;
 		this.telefono = telefono;
+		this.indirizziClienti=new HashSet<IndirizzoCliente>();
 	}
 	
 	public Cliente(String nome, String cognome, Character sesso, String cf, Date dataDiNascita,
@@ -83,7 +82,7 @@ public class Cliente {
 		this.luogoDiNascita = luogoDiNascita;
 		this.mail = mail;
 		this.telefono = telefono;
-		
+		this.indirizziClienti=new HashSet<IndirizzoCliente>();
 		Indirizzo residenza = indirizzi.get("residenza");
 		
 	}
@@ -160,15 +159,6 @@ public class Cliente {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-
-	/*
-	public Collection<Indirizzo> getIndirizzi() {
-		return indirizzi;
-	}
-
-	public void setIndirizzi(Collection<Indirizzo> indirizzi) {
-		this.indirizzi = indirizzi;
-	}*/
 
 	public Set<IndirizzoCliente> getIndirizziClienti() {
 		return indirizziClienti;
