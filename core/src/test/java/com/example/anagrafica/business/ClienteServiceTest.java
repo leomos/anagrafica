@@ -160,5 +160,71 @@ public class ClienteServiceTest {
 		assertEquals((int) this.clienteRepository.count(), i);
 
 	}
-
+	@Test
+	public void checkegetAllVisibile_whenSearchVisibileTrue_ShouldFindExactNumber() {
+	
+		
+		
+		
+		
+		Cliente c1 = new Cliente(
+	    		"Mario",
+	    		"Rossi",
+	    		'M',
+	    		"MARRSS0331233",
+	    		new Date(),
+	    		"Roma",
+	    		"mario.rossi@example.com",
+	    		"+39111222333"
+	    );
+		 Indirizzo i1 = new Indirizzo(
+		    		"Via Rossi",
+		    		55,
+		    		"Roma",
+		    		"Roma",
+		    		"Lazio",
+		    		"Italia"
+		    );
+			Cliente c2 = new Cliente(
+		    		"Mario",
+		    		"Rossi",
+		    		'M',
+		    		"MARRS1S01331233",
+		    		new Date(),
+		    		"Roma",
+		    		"mario.rossi@example.com",
+		    		"+39111222333"
+		    );
+			Cliente c3 = new Cliente(
+		    		"Mario",
+		    		"Rossi",
+		    		'M',
+		    		"MARRS1S0441233",
+		    		new Date(),
+		    		"Roma",
+		    		"mario.rossi@example.com",
+		    		"+39111222333"
+		    );
+		    this.indrizzoService.create(i1);
+		    c1.setVisibile(true);
+		    Map<String, Indirizzo> mappaIndirizzi = new HashMap<String, Indirizzo>();
+		    mappaIndirizzi.put("domicilio", i1);
+		
+		    
+		    c1.setVisibile(true);
+		    c3.setVisibile(true);
+		    c2.setVisibile(true);
+	    clienteService.create(c1, mappaIndirizzi);
+		    clienteRepository.save(c2);
+		    clienteRepository.save(c3);
+		    
+	    
+int i=clienteService.getAllVisibile(true).size();
+	 
+c3.setVisibile(false);
+c2.setVisibile(false);
+		    System.out.println("numero visibili trovati " + clienteService.getAllVisibile(true).size());
+	
+		    assertTrue((i-clienteService.getAllVisibile(true).size()) == 2);
+}
 }
