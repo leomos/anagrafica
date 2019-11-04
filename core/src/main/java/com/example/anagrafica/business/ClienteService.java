@@ -141,13 +141,6 @@ public class ClienteService {
 					CCli.remove(c);
 				}
 			};
-
-<<<<<<< HEAD
-	public Cliente getByCf1(String cfCliente) {
-		return clienteRepository.findByCf(cfCliente).get();
-	}
-=======
-		
 				if(!clienteFilter.getProvinciaDiResidenza().isEmpty()) {
 					boolean bic= false;
 					for (IndirizzoCliente ic:c.getIndirizziClienti()) {
@@ -176,5 +169,4 @@ public class ClienteService {
 				
 	}
 	
->>>>>>> bd7c01682d3d305118d51eb8fd0f95671571b382
 }

@@ -55,7 +55,7 @@ public class ClienteEndpoint {
 	@ResponsePayload
 	public GetClientiVisibiliResponse getClientiVisibili(@RequestPayload GetClientiVisibiliRequest request) {
 		GetClientiVisibiliResponse response = new GetClientiVisibiliResponse();
-        for(Cliente cl:this.clienteService.getAllVisibile()){
+        for(Cliente cl:this.clienteService.getAll()){
         	com.example.anagrafica.presentation.Cliente client=new com.example.anagrafica.presentation.Cliente();
         	client.setNome(cl.getNome());
         	client.setCognome(cl.getCognome());
