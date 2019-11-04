@@ -87,6 +87,8 @@ public class ClienteServiceTest {
 	    mappaIndirizzi.put("residenza", i1);
 	    
 	    clienteService.create(c1, mappaIndirizzi);
+	    
+	    System.out.println(clienteRepository.count());
 	}
 	
 	@Test
