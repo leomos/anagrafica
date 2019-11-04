@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Endpoint
 public class ClienteEndpoint {
@@ -43,7 +44,7 @@ public class ClienteEndpoint {
 			
 			throws Exception {
 		System.out.println(request.getClienteX().getIdCliente());
-		String risposta = "";
+		
 		
 		MetodiUtili mt=new MetodiUtili();
 		Character c =  'c';
@@ -52,61 +53,35 @@ public class ClienteEndpoint {
 		};
 		System.out.println("nnn");
 		
+		
+		Date dataCli= new Date();
+		if(!request.getClienteX().getDataDiNascita().isEmpty()) {
+			dataCli=mt.dataCreator(request.getClienteX().getDataDiNascita());
+		} 
+		
+		
+		
 		Cliente cli = new Cliente(request.getClienteX().getNome(), request.getClienteX().getCognome(),
 				c, request.getClienteX().getCf(),
-				mt.dataCreator(request.getClienteX().getDataDiNascita()), request.getClienteX().getLuogoDiNascita(),
+			dataCli	, request.getClienteX().getLuogoDiNascita(),
 				request.getClienteX().getMail(), request.getClienteX().getTelefono());
 	
 	
-System.out.println("creato cli");
+
 		Cliente clibase= new Cliente();
-				System.out.println("creato il cliente");
 				
-			if(!request.getClienteX().getIdCliente().equals(null)) {
-				System.out.println("dentro il nulla");
+				
+			if(Optional.ofNullable(request.getClienteX().idCliente  ).isPresent()) {
+			
 			clibase=	clienteService.get(request.getClienteX().getIdCliente().intValue()).get();
+			cli.setId(request.getClienteX().getIdCliente().intValue());
 			}
 			else if(!request.getClienteX().getCf().isEmpty()){
-				System.out.println("dentro il cf");
+			
 				clibase=clienteService.getByCf(request.getClienteX().getCf()).get();
 				cli.setId(clibase.getId());};
 			
-		if(request.getClienteX().getNome().isEmpty()) {
-			cli.setNome(clibase.getNome());
-		};
-		if(request.getClienteX().getCognome().isEmpty()) {
-			cli.setCognome(clibase.getCognome());
-		};
-		if(request.getClienteX().getCf().isEmpty()) {
-			cli.setCf(clibase.getCf());
-		};
-		if(request.getClienteX().getMail().isEmpty()) {
-			cli.setMail(clibase.getMail());
-		};
-		if(request.getClienteX().getLuogoDiNascita().isEmpty()) {
-			cli.setLuogoDiNascita(clibase.getLuogoDiNascita());
-		};
-		if(request.getClienteX().getTelefono().isEmpty()) {
-			cli.setTelefono(clibase.getTelefono());
-		};
-		if(request.getClienteX().getSesso().isEmpty()) {
-			cli.setSesso(clibase.getSesso());
-		};
-		if(request.getClienteX().getDataDiNascita().isEmpty()) {
-			cli.setDataDiNascita(clibase.getDataDiNascita());
-		};
-	
-		if (clienteService.update(
-
-				cli)) {
-
-			risposta += "cliente modificato";
-
-		} else {
-			risposta += "cliente da modificare non trovato";
-		}
-
-		
+		String risposta= clienteService.update(cli, clibase);
 		
 		PostModificaClienteResponse response = new PostModificaClienteResponse();
 		response.setRisposta(risposta);

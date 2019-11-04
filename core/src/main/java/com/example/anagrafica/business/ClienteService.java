@@ -64,4 +64,49 @@ public class ClienteService {
 	public Optional<Cliente> getByCf(String cf) {
 		return this.clienteRepository.findByCf(cf);
 	}
+	
+	public String update(Cliente cli,Cliente clibase) {	
+
+if(cli.getNome().isEmpty()) {
+cli.setNome(clibase.getNome());
+};
+if(cli.getCognome().isEmpty()) {
+cli.setCognome(clibase.getCognome());
+};
+if(cli.getCf().isEmpty()) {
+cli.setCf(clibase.getCf());
+};
+if(cli.getMail().isEmpty()) {
+cli.setMail(clibase.getMail());
+};
+if(cli.getLuogoDiNascita().isEmpty()) {
+cli.setLuogoDiNascita(clibase.getLuogoDiNascita());
+};
+if(cli.getTelefono().isEmpty()) {
+cli.setTelefono(clibase.getTelefono());
+};
+if(cli.getSesso().equals('c')) {
+cli.setSesso(clibase.getSesso());
+};
+if(cli.getDataDiNascita().toString().isEmpty()) {
+cli.setDataDiNascita(clibase.getDataDiNascita());
+};
+
+
+String risposta="";
+
+if (this.update(
+
+	cli)) {
+
+risposta += "cliente modificato";
+
+} else {
+risposta += "cliente da modificare non trovato";
+}
+return risposta;
+
+
+		
+	}
 }
