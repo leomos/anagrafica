@@ -20,8 +20,8 @@ insert into indirizzo(luogo, numero_civico, citta, provincia, regione, nazione)
 values ('Piazza Unità', 27, 'Gubbio', 'PE', 'Umbria', 'Italia');
 
 
-insert into indirizzo_cliente values (2,1,'residenza');
-insert into indirizzo_cliente values (3,2,'residenza');
+insert into indirizzo_cliente values (2,2,'residenza');
+insert into indirizzo_cliente values (3,2,'domicilio');
 
 insert into indirizzo_cliente values (2,3,'domicilio');
-insert into indirizzo_cliente values (4,4,'domicilio');
+insert into indirizzo_cliente values (4,3,'residenza');
