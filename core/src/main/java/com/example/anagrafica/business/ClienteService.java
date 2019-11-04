@@ -60,9 +60,18 @@ public class ClienteService {
   }
   
 	public Boolean deleteLogical(Cliente entity) {
-		if(entity.isVisibile()) {entity.setVisibile(false);}
-		this.clienteRepository.save(entity);
-		return entity.isVisibile();
+		Optional<Cliente> cliente=clienteRepository.findById(entity.getId());
+		if(cliente.isPresent()) {
+			Cliente clienteEffettivo=cliente.get();
+			if(clienteEffettivo.isVisibile() && clienteEffettivo.equals(entity)) {
+				entity.setVisibile(false);
+				this.clienteRepository.save(entity);
+				return true;
+			}
+			return false;
+		}
+		return false;
+	
 	}
 
 	public Collection<Cliente> getAllVisibile(boolean visibile) {
