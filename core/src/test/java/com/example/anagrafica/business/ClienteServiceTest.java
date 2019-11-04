@@ -197,4 +197,24 @@ public class ClienteServiceTest {
 
 	}
 
+	@Test
+	public void checkfindWithFilter_cf_whenClienteIsNotVisibile_dontShow() {
+		
+		Cliente c = clienteService.get(1).get();
+		
+		System.out.println("");
+		System.out.println(c.toString());
+		System.out.println("");
+		
+		ClienteFilter clf = new ClienteFilter("","","",	c.getCf(),"","","","");
+
+		this.clienteService.deleteLogical(c);
+			
+		try {
+			assertTrue(clienteService.findWithFilter(clf).isEmpty());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
