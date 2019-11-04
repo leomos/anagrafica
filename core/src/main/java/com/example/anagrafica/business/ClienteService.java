@@ -72,8 +72,8 @@ public class ClienteService {
 	public Optional<Cliente> getVisibile(Integer id) {
 		return this.clienteRepository.findByIdAndVisibileTrue(id);
 	}
-	 public Collection<Cliente> getAllVisibile() {
-			return (Collection<Cliente>) this.clienteRepository.findAllByVisibileTrue();
+	 public Collection<Cliente> getAllVisibile(boolean visibile) {
+		 	return (Collection<Cliente>) this.clienteRepository.findAllByVisibileTrue(visibile);
 		}
 	
 	
