@@ -42,10 +42,6 @@ public class ClienteService {
 		}
 	}
 	
-	public Optional<Cliente> getClienteById(Integer id) {
-		return this.clienteRepository.findById(id);
-	}
-
 	public Collection<Cliente> getAll() {
 		return this.getAllVisibile(true);
 	}
@@ -53,7 +49,6 @@ public class ClienteService {
 	public Optional<Cliente> getByCf(String string) {
 		return this.clienteRepository.findByCf(string);
 	}
-
 
 	public Boolean update(Cliente entity) {
 		if (clienteRepository.existsById(entity.getId())) {
@@ -70,29 +65,13 @@ public class ClienteService {
 		return entity.isVisibile();
 	}
 
-	public Optional<Cliente> getVisibile(Integer id) {
-		return this.clienteRepository.findByIdAndVisibileTrue(id);
-	}
 	public Collection<Cliente> getAllVisibile(boolean visibile) {
 		 return (Collection<Cliente>) this.clienteRepository.findAllByVisibileTrue(visibile);
 	}
 	
-	
 	public Optional<Cliente> get(Integer id) {
 		return this.clienteRepository.findById(id);
-	}
-		
-	public List<Cliente> findAllByAll(String nome,String cognome,Character sesso,String cf,Date data1,Date data2,String luogoDiNascita,String mail,String telefono) {
-	return this.clienteRepository.findAllByNomeAndCognomeAndSessoAndCfAndDataDiNascitaBetweenAndLuogoDiNascitaAndMailAndTelefono(nome, cognome, sesso, cf, data1, data2, luogoDiNascita, mail, telefono)	
-		;
-	}
-	
-
-	public Optional<Cliente> getById(int id) {
-		Optional<Cliente> clienteById = clienteRepository.findById(id);
-		return clienteById;
-	}
-	
+	}	
 	
 	public Collection<Cliente> findWithFilter(ClienteFilter  clienteFilter) throws Exception{
 		
