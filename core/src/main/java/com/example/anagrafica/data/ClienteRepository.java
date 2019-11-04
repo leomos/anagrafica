@@ -12,7 +12,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	(String nome,String cognome,char sesso,String cf,Date data1,Date data2,String luogoDiNascita,String mail,String telefono);
 	
 	boolean existsByCf(String cf);
+	Optional<Cliente> findByIdAndVisibileTrue(int id);
+	List<Cliente> findAllByVisibile(boolean visibile);
 
-	public Optional<Cliente> findByCf(String cf);
+	Optional<Cliente> findByCf(String cfCliente);
+	
 	
 }

@@ -2,6 +2,7 @@ package com.example.anagrafica.data;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,21 +41,17 @@ public class Cliente {
 	
 	private String telefono;
 	
-	/*@OneToMany
-	@JoinTable(
-			name="indirizzo_cliente",
-			joinColumns = @JoinColumn(
-	                name = "id_cliente",
-	                referencedColumnName = "id"
-	        ),
-	        inverseJoinColumns = @JoinColumn(
-	                name = "id_indirizzo",
-	                referencedColumnName = "id"
-	        )
-	)
-	private Collection<Indirizzo> indirizzi;*/
+	private Boolean visibile=true;
 	
-	@OneToMany(mappedBy = "cliente" ,fetch=FetchType.EAGER)
+	public Boolean isVisibile() {
+		return visibile;
+	}
+
+	public void setVisibile(Boolean visibile) {
+		this.visibile = visibile;
+	}
+
+	@OneToMany(mappedBy = "cliente", fetch=FetchType.EAGER)
 	private Set<IndirizzoCliente> indirizziClienti;
 	
 	public Cliente() {}
@@ -70,6 +67,7 @@ public class Cliente {
 		this.luogoDiNascita = luogoDiNascita;
 		this.mail = mail;
 		this.telefono = telefono;
+		this.indirizziClienti=new HashSet<IndirizzoCliente>();
 	}
 	
 	public Cliente(String nome, String cognome, Character sesso, String cf, Date dataDiNascita,
@@ -84,10 +82,11 @@ public class Cliente {
 		this.luogoDiNascita = luogoDiNascita;
 		this.mail = mail;
 		this.telefono = telefono;
-		
+		this.indirizziClienti=new HashSet<IndirizzoCliente>();
 		Indirizzo residenza = indirizzi.get("residenza");
 		
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -161,17 +160,87 @@ public class Cliente {
 		this.telefono = telefono;
 	}
 
-	/*
-	public Collection<Indirizzo> getIndirizzi() {
-		return indirizzi;
-	}
-
-	public void setIndirizzi(Collection<Indirizzo> indirizzi) {
-		this.indirizzi = indirizzi;
-	}*/
-
 	public Set<IndirizzoCliente> getIndirizziClienti() {
 		return indirizziClienti;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cf == null) ? 0 : cf.hashCode());
+		result = prime * result + ((cognome == null) ? 0 : cognome.hashCode());
+		result = prime * result + ((dataDiNascita == null) ? 0 : dataDiNascita.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((luogoDiNascita == null) ? 0 : luogoDiNascita.hashCode());
+		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((sesso == null) ? 0 : sesso.hashCode());
+		result = prime * result + ((telefono == null) ? 0 : telefono.hashCode());
+		result = prime * result + ((visibile == null) ? 0 : visibile.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (cf == null) {
+			if (other.cf != null)
+				return false;
+		} else if (!cf.equals(other.cf))
+			return false;
+		if (cognome == null) {
+			if (other.cognome != null)
+				return false;
+		} else if (!cognome.equals(other.cognome))
+			return false;
+		if (dataDiNascita == null) {
+			if (other.dataDiNascita != null)
+				return false;
+		} else if (!dataDiNascita.equals(other.dataDiNascita))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (luogoDiNascita == null) {
+			if (other.luogoDiNascita != null)
+				return false;
+		} else if (!luogoDiNascita.equals(other.luogoDiNascita))
+			return false;
+		if (mail == null) {
+			if (other.mail != null)
+				return false;
+		} else if (!mail.equals(other.mail))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (sesso == null) {
+			if (other.sesso != null)
+				return false;
+		} else if (!sesso.equals(other.sesso))
+			return false;
+		if (telefono == null) {
+			if (other.telefono != null)
+				return false;
+		} else if (!telefono.equals(other.telefono))
+			return false;
+		if (visibile == null) {
+			if (other.visibile != null)
+				return false;
+		} else if (!visibile.equals(other.visibile))
+			return false;
+		return true;
 	}
 
 	public void setIndirizziClienti(Set<IndirizzoCliente> indirizziClienti) {
