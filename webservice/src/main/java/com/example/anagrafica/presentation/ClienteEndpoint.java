@@ -286,7 +286,7 @@ public class ClienteEndpoint {
 	@ResponsePayload
 	public GetClienteByDettaglioResponse getClienteByDettaglio(@RequestPayload GetClienteByDettaglioRequest request) {
 		GetClienteByDettaglioResponse response = new GetClienteByDettaglioResponse();
-		Cliente c = clienteService.getByCf1(request.getCfCliente());
+		Cliente c = clienteService.getByCf(request.getCfCliente()).get();
 
 		ClienteByCf clienteRichiesto = new ClienteByCf();
 		clienteRichiesto.setNome(c.getNome());

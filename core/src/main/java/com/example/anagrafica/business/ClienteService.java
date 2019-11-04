@@ -49,8 +49,8 @@ public class ClienteService {
 		return (Collection<Cliente>) this.clienteRepository.findAll();
 	}
 
-	public Optional<Cliente> getByCf(String string) {
-		return this.clienteRepository.findByCf(string);
+	public Optional<Cliente> getByCf(String cf) {
+		return this.clienteRepository.findByCf(cf);
 	}
 
 
@@ -92,7 +92,4 @@ public class ClienteService {
 		return clienteById;
 	}
 
-	public Cliente getByCf1(String cfCliente) {
-		return clienteRepository.findByCf(cfCliente).get();
-	}
 }
