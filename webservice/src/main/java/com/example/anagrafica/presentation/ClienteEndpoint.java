@@ -25,8 +25,6 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import com.example.anagrafica.data.Cliente;
-
-import com.example.anagrafica.Utils.MetodiUtili;
 import com.example.anagrafica.business.ClienteService;
 import com.example.anagrafica.data.Cliente;
 import com.example.anagrafica.data.ClienteRepository;
@@ -43,6 +41,7 @@ import com.example.anagrafica.data.Cliente;
 import com.example.anagrafica.data.Indirizzo;
 import com.example.anagrafica.presentation.*;
 import com.example.anagrafica.presentation.GetListaClientiResponse;
+import com.example.anagrafica.utils.Utils;
 import com.example.anagrafica.presentation.GetListaClientiRequest;
 import com.example.anagrafica.business.ClienteService;
 import com.example.anagrafica.data.Cliente;
@@ -112,7 +111,7 @@ public class ClienteEndpoint {
 		System.out.println(request.getClienteX().getIdCliente());
 		String risposta = "";
 		
-		MetodiUtili mt=new MetodiUtili();
+		Utils mt=new Utils();
 		
 		Cliente cli = new Cliente(request.getClienteX().getNome(), request.getClienteX().getCognome(),
 				request.getClienteX().getSesso().charAt(0), request.getClienteX().getCf(),
@@ -146,7 +145,7 @@ public class ClienteEndpoint {
 	@ResponsePayload
 	public GetListaFiltrataResponse GetListaFiltrata(@RequestPayload GetListaFiltrataRequest request) throws Exception {
 	
-		MetodiUtili mt=new MetodiUtili();
+		Utils mt=new Utils();
 		GetListaFiltrataResponse response= new GetListaFiltrataResponse();
 		
 		System.out.println(request.getClienteX2().toString());
@@ -286,7 +285,7 @@ public class ClienteEndpoint {
 	@ResponsePayload
 	public GetClienteByDettaglioResponse getClienteByDettaglio(@RequestPayload GetClienteByDettaglioRequest request) {
 		GetClienteByDettaglioResponse response = new GetClienteByDettaglioResponse();
-		Cliente c = clienteService.getByCf1(request.getCfCliente());
+		Cliente c = clienteService.getByCf(request.getCfCliente()).get();
 
 		ClienteByCf clienteRichiesto = new ClienteByCf();
 		clienteRichiesto.setNome(c.getNome());
