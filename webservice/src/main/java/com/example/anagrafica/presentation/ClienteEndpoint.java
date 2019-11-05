@@ -57,13 +57,15 @@ public class ClienteEndpoint {
 	@ResponsePayload
 	public GetClientiVisibiliResponse getClientiVisibili(@RequestPayload GetClientiVisibiliRequest request) {
 		GetClientiVisibiliResponse response = new GetClientiVisibiliResponse();
-        for(Cliente cl:this.clienteService.getAll()){
+       
+		
+		for(Cliente cl:this.clienteService.getAll()){
         	com.example.anagrafica.presentation.Cliente client=new com.example.anagrafica.presentation.Cliente();
         	client.setNome(cl.getNome());
         	client.setCognome(cl.getCognome());
         	client.setSesso(Character.toString(cl.getSesso()));
         	client.setCf(cl.getCf());
-        	client.setDataDiNascita(cl.getDataDiNascita().toString());
+        	client.setDataDiNascita(Utils.dataToString(cl.getDataDiNascita()));
         	client.setLuogoDiNascita(cl.getLuogoDiNascita());
         	client.setMail(cl.getMail());
         	client.setTelefono(cl.getTelefono());
@@ -197,7 +199,7 @@ public class ClienteEndpoint {
 			x2.setNome(c.getNome());
 			x2.setCognome(c.getCognome());
 			x2.setCf(c.getCf());
-			x2.setDataDiNascita(c.getDataDiNascita().toString());
+			x2.setDataDiNascita(Utils.dataToString(c.getDataDiNascita()));
 			x2.setIdCliente(BigInteger.valueOf(c.getId()));
 			x2.setLuogoDiNascita(c.getLuogoDiNascita());
 			x2.setMail(c.getMail());
@@ -282,6 +284,8 @@ public class ClienteEndpoint {
 	@ResponsePayload
 	public GetListaClientiResponse getListaClienti(@RequestPayload GetListaClientiRequest request) {
 		GetListaClientiResponse response = new GetListaClientiResponse();
+		
+		
 		for(Cliente ic: clienteService.getAll()) {
 			com.example.anagrafica.presentation.Cliente nuovocliente = new com.example.anagrafica.presentation.Cliente();
 			nuovocliente.setCf(ic.getCf());
@@ -290,7 +294,7 @@ public class ClienteEndpoint {
 			nuovocliente.setLuogoDiNascita(ic.getLuogoDiNascita());
 			nuovocliente.setMail(ic.getMail());
 			nuovocliente.setTelefono(ic.getMail());
-			nuovocliente.setDataDiNascita(ic.getDataDiNascita().toString());
+			nuovocliente.setDataDiNascita(Utils.dataToString(ic.getDataDiNascita()));
 			nuovocliente.setSesso(ic.getSesso().toString());
 	        response.getI().add(nuovocliente);
 

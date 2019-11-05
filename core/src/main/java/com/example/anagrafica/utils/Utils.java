@@ -12,6 +12,18 @@ public class Utils {
 	}
 
 	
+	public static String dataToString(Date data) {
+		
+		String pattern = "dd/MM/yyyy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		String date = simpleDateFormat.format(data);
+		System.out.println(date);
+		
+		return date ;
+		
+	}
+	
 	
 	
 }
