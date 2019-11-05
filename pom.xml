@@ -8,6 +8,5 @@
   <modules>
   	<module>core</module>
     <module>webservice</module>
-    <module>webui</module>
   </modules>
 </project>
