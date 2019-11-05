@@ -6,7 +6,7 @@
 
 
 
-		<xs:complexType name="clienteFilterx">
+	<xs:complexType name="clienteFilterx">
 		<xs:sequence>
 
 			<xs:element name="nome" type="xs:string" />
@@ -22,9 +22,8 @@
 
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="clientex">
+	<xs:complexType name="XClienteResponse">
 		<xs:sequence>
-			<xs:element name="id" type="xs:integer" />
 			<xs:element name="nome" type="xs:string" />
 			<xs:element name="cognome" type="xs:string" />
 			<xs:element name="sesso" type="xs:string" />
@@ -35,7 +34,16 @@
 			<xs:element name="telefono" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
-
+	<xs:complexType name="XClienteRequest">
+		<xs:complexContent>
+			<xs:extension base="tns:XClienteResponse">
+				<xs:sequence>
+					<xs:element name="id" type="xs:integer" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
 
 
 	<xs:simpleType name="FormatoData">
@@ -79,7 +87,7 @@
 	<xs:element name="postModificaClienteRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="cliente" type="tns:clientex" />
+				<xs:element name="cliente" type="tns:XClienteRequest" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -99,7 +107,8 @@
 	<xs:element name="getListaFiltrataRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="clienteFilter" type="tns:clienteFilterx" />
+				<xs:element name="clienteFilter"
+					type="tns:clienteFilterx" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -110,7 +119,7 @@
 	<xs:element name="getListaFiltrataResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="cliente" type="tns:clientex"
+				<xs:element name="cliente" type="tns:XClienteResponse"
 					maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
@@ -125,7 +134,7 @@
 	<xs:element name="getClientiVisibiliResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ClientiVisibili" type="tns:clientex"
+				<xs:element name="ClientiVisibili" type="tns:XClienteResponse"
 					maxOccurs="unbounded"></xs:element>
 			</xs:sequence>
 		</xs:complexType>
@@ -156,7 +165,7 @@
 	<xs:element name="createClienteRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="cliente" type="tns:clientex" />
+				<xs:element name="cliente" type="tns:XClienteRequest" />
 				<xs:element name="indirizzo" type="tns:indirizzo2" />
 				<xs:element name="tipo" type="xs:string" />
 			</xs:sequence>
@@ -186,8 +195,8 @@
 	<xs:element name="GetClienteByDettaglioResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="cliente_Richiesto"
-					type="tns:clientex" maxOccurs="unbounded" />
+				<xs:element name="cliente_Richiesto" type="tns:XClienteResponse"
+					maxOccurs="unbounded" />
 
 			</xs:sequence>
 		</xs:complexType>
@@ -208,7 +217,7 @@
 	<xs:element name="getListaClientiResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="i" type="tns:clientex"
+				<xs:element name="i" type="tns:XClienteResponse"
 					maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>

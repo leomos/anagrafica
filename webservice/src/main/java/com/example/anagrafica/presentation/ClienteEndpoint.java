@@ -58,7 +58,7 @@ public class ClienteEndpoint {
 	public GetClientiVisibiliResponse getClientiVisibili(@RequestPayload GetClientiVisibiliRequest request) {
 		GetClientiVisibiliResponse response = new GetClientiVisibiliResponse();
         for(Cliente cl:this.clienteService.getAll()){
-        	Clientex client=new Clientex();
+        	XClienteResponse client=new XClienteResponse();
         	client.setNome(cl.getNome());
         	client.setCognome(cl.getCognome());
         	client.setSesso(Character.toString(cl.getSesso()));
@@ -106,7 +106,7 @@ public class ClienteEndpoint {
 	@ResponsePayload
 	public PostModificaClienteResponse postModificaCliente(@RequestPayload PostModificaClienteRequest request) throws Exception {
 		PostModificaClienteResponse response = new PostModificaClienteResponse();
-		Clientex cx = request.getCliente();
+		XClienteRequest cx = request.getCliente();
 		Utils mt = new Utils();
 		
 		if(cx == null) {
@@ -192,13 +192,13 @@ public class ClienteEndpoint {
 		
 		for (Cliente c: CCli) {
 			
-			Clientex x2=new Clientex();
+			XClienteResponse x2=new XClienteResponse();
 			
 			x2.setNome(c.getNome());
 			x2.setCognome(c.getCognome());
 			x2.setCf(c.getCf());
 			x2.setDataDiNascita(c.getDataDiNascita().toString());
-			x2.setId(BigInteger.valueOf(c.getId()));
+			
 			x2.setLuogoDiNascita(c.getLuogoDiNascita());
 			x2.setMail(c.getMail());
 			x2.setSesso(c.getSesso().toString());
@@ -221,7 +221,7 @@ public class ClienteEndpoint {
 	public CreateClienteResponse create(@RequestPayload CreateClienteRequest req ) throws ParseException {
 		CreateClienteResponse ccr = new CreateClienteResponse();
 		Map<String, Indirizzo> m = new HashMap<String, Indirizzo>();
-		Clientex cl=req.getCliente();
+		XClienteRequest cl=req.getCliente();
 		Indirizzo indirizzo=new Indirizzo(req.getIndirizzo().getLuogo(),req.getIndirizzo().getNumeroCivico(),req.getIndirizzo().getCitta(),req.getIndirizzo().getProvincia(),req.getIndirizzo().getRegione(),req.getIndirizzo().getNazione());
 		indirizzoService.create(indirizzo);
 		char s = cl.getSesso().charAt(0);
@@ -248,7 +248,7 @@ public class ClienteEndpoint {
 		GetClienteByDettaglioResponse response = new GetClienteByDettaglioResponse();
 		Cliente c = clienteService.getByCf(request.getCfCliente()).get();
 
-		Clientex clienteRichiesto = new Clientex();
+		XClienteResponse clienteRichiesto = new XClienteResponse();
 		clienteRichiesto.setNome(c.getNome());
 		clienteRichiesto.setCognome(c.getCognome());
 		clienteRichiesto.setSesso(Character.toString(c.getSesso()));
@@ -283,7 +283,7 @@ public class ClienteEndpoint {
 	public GetListaClientiResponse getListaClienti(@RequestPayload GetListaClientiRequest request) {
 		GetListaClientiResponse response = new GetListaClientiResponse();
 		for(Cliente ic: clienteService.getAll()) {
-			Clientex nuovocliente = new Clientex();
+			XClienteResponse nuovocliente = new XClienteResponse();
 			nuovocliente.setCf(ic.getCf());
 			nuovocliente.setNome(ic.getNome());
 			nuovocliente.setCognome(ic.getCognome());
