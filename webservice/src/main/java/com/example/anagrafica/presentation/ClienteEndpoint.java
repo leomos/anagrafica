@@ -63,7 +63,7 @@ public class ClienteEndpoint {
         	client.setCognome(cl.getCognome());
         	client.setSesso(Character.toString(cl.getSesso()));
         	client.setCf(cl.getCf());
-        	client.setDataDiNascita(cl.getDataDiNascita().toString());
+        	client.setDataDiNascita(Utils.dataToString(cl.getDataDiNascita()));
         	client.setLuogoDiNascita(cl.getLuogoDiNascita());
         	client.setMail(cl.getMail());
         	client.setTelefono(cl.getTelefono());
@@ -197,8 +197,8 @@ public class ClienteEndpoint {
 			x2.setNome(c.getNome());
 			x2.setCognome(c.getCognome());
 			x2.setCf(c.getCf());
-			x2.setDataDiNascita(c.getDataDiNascita().toString());
-			
+			x2.setDataDiNascita(Utils.dataToString(c.getDataDiNascita()));
+			x2.setIdCliente(BigInteger.valueOf(c.getId()));
 			x2.setLuogoDiNascita(c.getLuogoDiNascita());
 			x2.setMail(c.getMail());
 			x2.setSesso(c.getSesso().toString());
@@ -222,14 +222,20 @@ public class ClienteEndpoint {
 		CreateClienteResponse ccr = new CreateClienteResponse();
 		Map<String, Indirizzo> m = new HashMap<String, Indirizzo>();
 		XClienteRequest cl=req.getCliente();
-		Indirizzo indirizzo=new Indirizzo(req.getIndirizzo().getLuogo(),req.getIndirizzo().getNumeroCivico(),req.getIndirizzo().getCitta(),req.getIndirizzo().getProvincia(),req.getIndirizzo().getRegione(),req.getIndirizzo().getNazione());
-		indirizzoService.create(indirizzo);
+		Indirizzo indirizzo;
+		String tipo=null;
+		for (Indirizzo2 ind:req.getIndirizzo()) {
+			indirizzo=new Indirizzo(ind.getLuogo(),ind.getNumeroCivico(),ind.getCitta(),ind.getProvincia(),ind.getRegione(),ind.getNazione());
+			indirizzoService.create(indirizzo);
+			tipo=ind.getTipo();
+			m.put(tipo, indirizzo);
+		}
 		char s = cl.getSesso().charAt(0);
 		
 		Date d = dataConverter(	cl.getDataDiNascita());
 		
 		Cliente c = new Cliente(cl.getNome(), cl.getCognome(), s, cl.getCf(), d, cl.getLuogoDiNascita(), cl.getMail(), cl.getTelefono());
-		m.put(req.getTipo(), indirizzo);
+	
 
 		ccr.setResponse(clienteService.create(c, m));
 		return ccr;
@@ -282,6 +288,8 @@ public class ClienteEndpoint {
 	@ResponsePayload
 	public GetListaClientiResponse getListaClienti(@RequestPayload GetListaClientiRequest request) {
 		GetListaClientiResponse response = new GetListaClientiResponse();
+		
+		
 		for(Cliente ic: clienteService.getAll()) {
 			XClienteResponse nuovocliente = new XClienteResponse();
 			nuovocliente.setCf(ic.getCf());
@@ -290,7 +298,7 @@ public class ClienteEndpoint {
 			nuovocliente.setLuogoDiNascita(ic.getLuogoDiNascita());
 			nuovocliente.setMail(ic.getMail());
 			nuovocliente.setTelefono(ic.getMail());
-			nuovocliente.setDataDiNascita(ic.getDataDiNascita().toString());
+			nuovocliente.setDataDiNascita(Utils.dataToString(ic.getDataDiNascita()));
 			nuovocliente.setSesso(ic.getSesso().toString());
 	        response.getI().add(nuovocliente);
 

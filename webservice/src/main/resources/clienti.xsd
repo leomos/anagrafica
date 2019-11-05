@@ -127,10 +127,6 @@
 
 
 
-
-
-
-
 	<xs:element name="getClientiVisibiliResponse">
 		<xs:complexType>
 			<xs:sequence>
@@ -162,12 +158,25 @@
 		</xs:complexType>
 	</xs:element>
 
+	<xs:complexType name="indirizzo2">
+		<xs:sequence>
+			<xs:element name="luogo" type="xs:string" />
+			<xs:element name="numero_civico" type="xs:int" />
+			<xs:element name="citta" type="xs:string" />
+			<xs:element name="provincia" type="xs:string" />
+			<xs:element name="regione" type="xs:string" />
+			<xs:element name="nazione" type="xs:string" />
+			<xs:element name="tipo" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+
 	<xs:element name="createClienteRequest">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="cliente" type="tns:XClienteRequest" />
-				<xs:element name="indirizzo" type="tns:indirizzo2" />
-				<xs:element name="tipo" type="xs:string" />
+				<xs:element name="indirizzo" type="tns:indirizzo2"
+					minOccurs="0" maxOccurs="2" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
