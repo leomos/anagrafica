@@ -104,53 +104,65 @@ public class ClienteEndpoint {
 	 */
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "postModificaClienteRequest")
 	@ResponsePayload
-	public PostModificaClienteResponse postModificaCliente(@RequestPayload PostModificaClienteRequest request)
-			
-			
-
-			
-			throws Exception {
-		System.out.println(request.getClienteX().getIdCliente());
-		
-    Utils mt=new Utils();		
-    Character c =  'c';
-		if(!request.getClienteX().getSesso().isEmpty()) {
-		 c=request.getClienteX().getSesso().charAt(0);
-		};
-		System.out.println("nnn");
-		
-		
-		Date dataCli= new Date();
-		if(!request.getClienteX().getDataDiNascita().isEmpty()) {
-			dataCli=mt.dataCreator(request.getClienteX().getDataDiNascita());
-		} 
-		
-		
-		Cliente cli = new Cliente(request.getClienteX().getNome(), request.getClienteX().getCognome(),
-				c, request.getClienteX().getCf(),
-			dataCli	, request.getClienteX().getLuogoDiNascita(),
-				request.getClienteX().getMail(), request.getClienteX().getTelefono());
-	
-	
-
-		Cliente clibase= new Cliente();
-				
-				
-			if(Optional.ofNullable(request.getClienteX().idCliente  ).isPresent()) {
-			
-			clibase=	clienteService.get(request.getClienteX().getIdCliente().intValue()).get();
-			cli.setId(request.getClienteX().getIdCliente().intValue());
-			}
-			else if(!request.getClienteX().getCf().isEmpty()){
-			
-				clibase=clienteService.getByCf(request.getClienteX().getCf()).get();
-				cli.setId(clibase.getId());};
-			
-		String risposta= clienteService.update(cli, clibase);
-		
+	public PostModificaClienteResponse postModificaCliente(@RequestPayload PostModificaClienteRequest request) throws Exception {
 		PostModificaClienteResponse response = new PostModificaClienteResponse();
-		response.setRisposta(risposta);
-		return response;
+		ClienteX cx = request.getClienteX();
+		Utils mt = new Utils();
+		
+		if(cx == null) {
+			response.setRisposta("ClienteX is null");
+			return response;
+		}
+		
+		Optional<Cliente> newCliente;
+		
+		if(cx.getIdCliente() != null) {
+			newCliente = this.clienteService.get(cx.getIdCliente().intValue());
+		} else if(cx.getCf() != null && !cx.getCf().isEmpty()) {
+			newCliente = this.clienteService.getByCf(cx.getCf());
+		} else {
+			response.setRisposta("ClienteX is missing both id and cf");
+			return response;
+		}
+		
+		if(newCliente.isPresent()) {
+			Cliente effectiveCliente = newCliente.get();
+			
+			if(cx.getNome() != null) {
+				effectiveCliente.setNome(cx.getNome());
+			}
+			if(cx.getCognome() != null) {
+				effectiveCliente.setCognome(cx.getCognome());
+			}
+			if(cx.getCf() != null) {
+				effectiveCliente.setCf(cx.getCf());
+			}
+			if(cx.getMail() != null) {
+				effectiveCliente.setMail(cx.getMail());
+			}
+			if(cx.getLuogoDiNascita() != null) {
+				effectiveCliente.setLuogoDiNascita(cx.getLuogoDiNascita());
+			}
+			if(cx.getTelefono() != null) {
+				effectiveCliente.setTelefono(cx.getTelefono());
+			}
+			if(cx.getSesso() != null) {
+				effectiveCliente.setSesso(cx.getSesso().charAt(0));
+			}
+			if(cx.getDataDiNascita() != null) {
+				effectiveCliente.setDataDiNascita(mt.dataCreator(cx.getDataDiNascita()));
+			}
+			
+			if(this.clienteService.update(effectiveCliente)) {
+				response.setRisposta("Update went fine!");
+			} else {
+				response.setRisposta("There was a problem with update.");
+			}
+			return response;
+		} else {
+			response.setRisposta("Can't find a Cliente with the specified identifier.");
+			return response;
+		}
 	}
 
 	
@@ -175,41 +187,9 @@ public class ClienteEndpoint {
 				request.getClienteX2().getDataFinale(), 
 				request.getClienteX2().getProvinciaDiResidenza(), 
 				request.getClienteX2().getRegioneDiResidenza());
-		
-	
+
 		Collection<Cliente> CCli=clienteService.findWithFilter(cf); 
-	
-			if(!request.getClienteX2().getProvinciaDiResidenza().isEmpty()) {
-				boolean bic= false;
-				for (IndirizzoCliente ic:c.getIndirizziClienti()) {
-				if(ic.getIndirizzo().getProvincia().equalsIgnoreCase(request.getClienteX2().getProvinciaDiResidenza()))
-				{
-					bic=true;
-				};
-				
-				};
-				if(bic==false) {
-					CCli.remove(c);
-				}
-			};
-			if(!request.getClienteX2().getRegioneDiResidenza().isEmpty()) {
-				boolean bic= false;
-				for (IndirizzoCliente ic:c.getIndirizziClienti()) {
-				if(ic.getIndirizzo().getRegione().equalsIgnoreCase(request.getClienteX2().getRegioneDiResidenza())){
-					bic=true;
-				};
-				
-				};
-				if(bic==false) {
-					CCli.remove(c);
-				}
-			};
-			
 		
-	}
-		
-	
-	
 		for (Cliente c: CCli) {
 			
 			ClienteX x2=new ClienteX();

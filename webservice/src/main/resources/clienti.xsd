@@ -9,9 +9,16 @@
 		</xs:complexType>
 	</xs:element>
 
+	<xs:simpleType name="ModDate">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{2}[/]\d{2}[/]\d{4}"></xs:pattern>
+			<xs:length value="10" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:complexType name="clienteX">
 		<xs:sequence>
-			<xs:element name="idCliente" type="xs:int" />
+			<xs:element name="idCliente" type="xs:integer" />
 			<xs:element name="nome" type="xs:string" />
 			<xs:element name="cognome" type="xs:string" />
 			<xs:element name="sesso" type="tns:character" />
@@ -20,32 +27,8 @@
 			<xs:element name="luogoDiNascita" type="xs:string" />
 			<xs:element name="mail" type="xs:string" />
 			<xs:element name="telefono" type="xs:string" />
-
 		</xs:sequence>
 	</xs:complexType>
-
-
-
-	<xs:simpleType name="ModDate">
-		<xs:restriction base="xs:string">
-			<xs:pattern value="\d{2}[/]\d{2}[/]\d{4}"></xs:pattern>
-			<xs:length value="10" />
-		</xs:restriction>
-	</xs:simpleType>
-
-<xs:complexType name="clienteX">
-	<xs:sequence>
-		<xs:element name="idCliente" type="xs:integer" />
-		<xs:element name="nome" type="xs:string" />
-		<xs:element name="cognome" type="xs:string" />
-		<xs:element name="sesso" type="tns:character"   />
-		<xs:element name="cf" type="xs:string" />
-		<xs:element name="dataDiNascita" type="tns:ModDate" />
-		<xs:element name="luogoDiNascita" type="xs:string" />
-		<xs:element name="mail" type="xs:string" />
-		<xs:element name="telefono" type="xs:string" />
-  </xs:sequence>
-  </xs:complexType>
 
 
 	<xs:simpleType name="character">

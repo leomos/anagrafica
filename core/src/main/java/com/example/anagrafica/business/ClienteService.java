@@ -47,10 +47,6 @@ public class ClienteService {
 		return this.getAllVisibile(true);
 	}
 
-	public Optional<Cliente> getByCf(String string) {
-		return this.clienteRepository.findByCf(string);
-	}
-
 	public Boolean update(Cliente entity) {
 		if (clienteRepository.existsById(entity.getId())) {
 			Cliente savedCliente = this.clienteRepository.save(entity);
@@ -61,10 +57,10 @@ public class ClienteService {
 	}
 
 	public Boolean deleteLogical(Cliente entity) {
-		Optional<Cliente> cliente=clienteRepository.findById(entity.getId());
-		if(cliente.isPresent()) {
-			Cliente clienteEffettivo=cliente.get();
-			if(clienteEffettivo.isVisibile() && clienteEffettivo.equals(entity)) {
+		Optional<Cliente> cliente = clienteRepository.findById(entity.getId());
+		if (cliente.isPresent()) {
+			Cliente clienteEffettivo = cliente.get();
+			if (clienteEffettivo.isVisibile() && clienteEffettivo.equals(entity)) {
 				entity.setVisibile(false);
 				this.clienteRepository.save(entity);
 				return true;
@@ -99,131 +95,123 @@ public class ClienteService {
 				if (!c.getNome().equalsIgnoreCase(clienteFilter.getNome())) {
 					b=true;
 				}
-				;
-
 			}
-			;
 
 			if (!clienteFilter.getCognome().isEmpty()) {
 				if (!c.getCognome().equalsIgnoreCase(clienteFilter.getCognome())) {
 					b=true;
 				}
-				;
-
 			}
-			;
+
 			if (!clienteFilter.getSesso().isEmpty()) {
 				if (!c.getSesso().toString().equalsIgnoreCase(clienteFilter.getSesso())) {
 					b=true;
 				}
-				;
-
 			}
-			;
+
 			if (!clienteFilter.getCf().isEmpty()) {
 				if (!c.getCf().equalsIgnoreCase(clienteFilter.getCf())) {
 					b=true;
 				}
-				;
-
 			}
-			;
 
 			if (!clienteFilter.getDataIniziale().isEmpty()) {
 				if (c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataIniziale())) < 0) {
 					b=true;
 				}
 			}
-			;
+			
 			if (!clienteFilter.getDataFinale().isEmpty()) {
 				if (c.getDataDiNascita().compareTo(mt.dataCreator(clienteFilter.getDataFinale())) > 0) {
 					b=true;
 				}
 			}
-			;
+			
 			if (!clienteFilter.getProvinciaDiResidenza().isEmpty()) {
 				if(Optional.ofNullable(c.getIndirizziClienti()) != null) {
-				boolean bic = false;
-				for (IndirizzoCliente ic : c.getIndirizziClienti()) {
-					if (ic.getIndirizzo().getProvincia().equalsIgnoreCase(clienteFilter.getProvinciaDiResidenza())&& ic.getId().getTipo().equalsIgnoreCase("residenza")) {
-						bic = true;
+					boolean bic = false;
+					for (IndirizzoCliente ic : c.getIndirizziClienti()) {
+						if (ic.getIndirizzo().getProvincia().equalsIgnoreCase(clienteFilter.getProvinciaDiResidenza())&& ic.getId().getTipo().equalsIgnoreCase("residenza")) {
+							bic = true;
+						}
 					}
-					;
-
+					if (bic == false) {
+						b=true;
+					}
 				}
-				;
-				if (bic == false) {
-					b=true;
-				}
-			}}
-			;
+			}
+			
 			if (!clienteFilter.getRegioneDiResidenza().isEmpty()) {
 				if(Optional.ofNullable(c.getIndirizziClienti()) != null) {
-				boolean bic = false;
-				for (IndirizzoCliente ic : c.getIndirizziClienti()) {
-					if (ic.getIndirizzo().getRegione().equalsIgnoreCase(clienteFilter.getRegioneDiResidenza()) && ic.getId().getTipo().equalsIgnoreCase("residenza")) {
-						bic = true;
-					}
-					;
-
-				}
-				;
-				if (bic == false) {
-					b=true;
-				}
-			}}
-			;
+					boolean bic = false;
+					for (IndirizzoCliente ic : c.getIndirizziClienti()) {
+						if (ic.getIndirizzo().getRegione().equalsIgnoreCase(clienteFilter.getRegioneDiResidenza()) && ic.getId().getTipo().equalsIgnoreCase("residenza")) {
+							bic = true;
+						}
 	
-		if(false==b) {nCCli.add(c);
+					}
+					if (bic == false) {
+						b=true;
+					}
+				}
+			}
 			
+			if(false==b) {
+				nCCli.add(c);			
+			}
 		}
+		return nCCli;
+	}
 
 	public Optional<Cliente> getByCf(String cf) {
 		return this.clienteRepository.findByCf(cf);
 	}
-	
-	public String update(Cliente cli,Cliente clibase) {	
 
-if(cli.getNome().isEmpty()) {
-cli.setNome(clibase.getNome());
-};
-if(cli.getCognome().isEmpty()) {
-cli.setCognome(clibase.getCognome());
-};
-if(cli.getCf().isEmpty()) {
-cli.setCf(clibase.getCf());
-};
-if(cli.getMail().isEmpty()) {
-cli.setMail(clibase.getMail());
-};
-if(cli.getLuogoDiNascita().isEmpty()) {
-cli.setLuogoDiNascita(clibase.getLuogoDiNascita());
-};
-if(cli.getTelefono().isEmpty()) {
-cli.setTelefono(clibase.getTelefono());
-};
-if(cli.getSesso().equals('c')) {
-cli.setSesso(clibase.getSesso());
-};
-if(cli.getDataDiNascita().toString().isEmpty()) {
-cli.setDataDiNascita(clibase.getDataDiNascita());
-};
+	public String update(Cliente cli, Cliente clibase) {
 
+		if (cli.getNome().isEmpty()) {
+			cli.setNome(clibase.getNome());
+		}
+		;
+		if (cli.getCognome().isEmpty()) {
+			cli.setCognome(clibase.getCognome());
+		}
+		;
+		if (cli.getCf().isEmpty()) {
+			cli.setCf(clibase.getCf());
+		}
+		;
+		if (cli.getMail().isEmpty()) {
+			cli.setMail(clibase.getMail());
+		}
+		;
+		if (cli.getLuogoDiNascita().isEmpty()) {
+			cli.setLuogoDiNascita(clibase.getLuogoDiNascita());
+		}
+		;
+		if (cli.getTelefono().isEmpty()) {
+			cli.setTelefono(clibase.getTelefono());
+		}
+		;
+		if (cli.getSesso().equals('c')) {
+			cli.setSesso(clibase.getSesso());
+		}
+		;
+		if (cli.getDataDiNascita().toString().isEmpty()) {
+			cli.setDataDiNascita(clibase.getDataDiNascita());
+		}
+		;
 
-String risposta="";
+		String risposta = "";
 
-if (this.update(
+		if (this.update(cli)) {
 
-	cli)) {
+			risposta += "cliente modificato";
 
-risposta += "cliente modificato";
+		} else {
+			risposta += "cliente da modificare non trovato";
+		}
+		return risposta;
 
-} else {
-risposta += "cliente da modificare non trovato";
-}
-return risposta;
-
-
-		
 	}
 }

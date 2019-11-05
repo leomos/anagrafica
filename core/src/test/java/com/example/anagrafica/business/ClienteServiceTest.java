@@ -63,41 +63,6 @@ public class ClienteServiceTest {
 	@Autowired
 	private IndirizzoRepository indirizzoRepository;
 	
-	@Before
-	public void setUp() {
-	   
-	}
-	
-
-=======
-
-	@TestConfiguration
-	static class ClienteServiceTestContextConfiguration {
-		@Bean
-		public ClienteService clienteService() {
-			return new ClienteService();
-		}
-
-		@Bean
-		public IndirizzoService indirizzoService() {
-			return new IndirizzoService();
-		}
-	}
-
-	@Autowired
-	private ClienteService clienteService;
-
-	@Autowired
-	private IndirizzoService indrizzoService;
-
-	@Autowired
-	private ClienteRepository clienteRepository;
-
-	@Autowired
-	private IndirizzoClienteRepository indirizzoClienteRepository;
-
-	@Autowired
-	private IndirizzoRepository indirizzoRepository;
 
 	Utils utils = new Utils();
 
