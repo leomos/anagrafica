@@ -58,7 +58,7 @@ public class ClienteEndpoint {
 	public GetClientiVisibiliResponse getClientiVisibili(@RequestPayload GetClientiVisibiliRequest request) {
 		GetClientiVisibiliResponse response = new GetClientiVisibiliResponse();
         for(Cliente cl:this.clienteService.getAll()){
-        	com.example.anagrafica.presentation.Cliente client=new com.example.anagrafica.presentation.Cliente();
+        	Clientex client=new Clientex();
         	client.setNome(cl.getNome());
         	client.setCognome(cl.getCognome());
         	client.setSesso(Character.toString(cl.getSesso()));
@@ -106,7 +106,7 @@ public class ClienteEndpoint {
 	@ResponsePayload
 	public PostModificaClienteResponse postModificaCliente(@RequestPayload PostModificaClienteRequest request) throws Exception {
 		PostModificaClienteResponse response = new PostModificaClienteResponse();
-		ClienteX cx = request.getClienteX();
+		Clientex cx = request.getCliente();
 		Utils mt = new Utils();
 		
 		if(cx == null) {
@@ -116,8 +116,8 @@ public class ClienteEndpoint {
 		
 		Optional<Cliente> newCliente;
 		
-		if(cx.getIdCliente() != null) {
-			newCliente = this.clienteService.get(cx.getIdCliente().intValue());
+		if(cx.getId() != null) {
+			newCliente = this.clienteService.get(cx.getId().intValue());
 		} else if(cx.getCf() != null && !cx.getCf().isEmpty()) {
 			newCliente = this.clienteService.getByCf(cx.getCf());
 		} else {
@@ -177,34 +177,34 @@ public class ClienteEndpoint {
 		Utils mt=new Utils();
 		GetListaFiltrataResponse response= new GetListaFiltrataResponse();
 		
-		System.out.println(request.getClienteX2().toString());
+		System.out.println(request.getClienteFilter().toString());
 	
-		ClienteFilter cf=new ClienteFilter(request.getClienteX2().getNome(),
-				request.getClienteX2().getCognome(), 
-				request.getClienteX2().getSesso(),
-				request.getClienteX2().getCf(), 
-				request.getClienteX2().getDataIniziale(), 
-				request.getClienteX2().getDataFinale(), 
-				request.getClienteX2().getProvinciaDiResidenza(), 
-				request.getClienteX2().getRegioneDiResidenza());
+		ClienteFilter cf=new ClienteFilter(request.getClienteFilter().getNome(),
+				request.getClienteFilter().getCognome(), 
+				request.getClienteFilter().getSesso(),
+				request.getClienteFilter().getCf(), 
+				request.getClienteFilter().getDataIniziale(), 
+				request.getClienteFilter().getDataFinale(), 
+				request.getClienteFilter().getProvinciaDiResidenza(), 
+				request.getClienteFilter().getRegioneDiResidenza());
 
 		Collection<Cliente> CCli=clienteService.findWithFilter(cf); 
 		
 		for (Cliente c: CCli) {
 			
-			ClienteX x2=new ClienteX();
+			Clientex x2=new Clientex();
 			
 			x2.setNome(c.getNome());
 			x2.setCognome(c.getCognome());
 			x2.setCf(c.getCf());
 			x2.setDataDiNascita(c.getDataDiNascita().toString());
-			x2.setIdCliente(BigInteger.valueOf(c.getId()));
+			x2.setId(BigInteger.valueOf(c.getId()));
 			x2.setLuogoDiNascita(c.getLuogoDiNascita());
 			x2.setMail(c.getMail());
 			x2.setSesso(c.getSesso().toString());
 			x2.setTelefono(c.getTelefono());
 			
-			response.getClienteX().add(x2);
+			response.getCliente().add(x2);
 			System.out.println(x2.toString());
 		}
 		
@@ -221,7 +221,7 @@ public class ClienteEndpoint {
 	public CreateClienteResponse create(@RequestPayload CreateClienteRequest req ) throws ParseException {
 		CreateClienteResponse ccr = new CreateClienteResponse();
 		Map<String, Indirizzo> m = new HashMap<String, Indirizzo>();
-		Cliente2 cl=req.getCliente();
+		Clientex cl=req.getCliente();
 		Indirizzo indirizzo=new Indirizzo(req.getIndirizzo().getLuogo(),req.getIndirizzo().getNumeroCivico(),req.getIndirizzo().getCitta(),req.getIndirizzo().getProvincia(),req.getIndirizzo().getRegione(),req.getIndirizzo().getNazione());
 		indirizzoService.create(indirizzo);
 		char s = cl.getSesso().charAt(0);
@@ -248,12 +248,12 @@ public class ClienteEndpoint {
 		GetClienteByDettaglioResponse response = new GetClienteByDettaglioResponse();
 		Cliente c = clienteService.getByCf(request.getCfCliente()).get();
 
-		ClienteByCf clienteRichiesto = new ClienteByCf();
+		Clientex clienteRichiesto = new Clientex();
 		clienteRichiesto.setNome(c.getNome());
 		clienteRichiesto.setCognome(c.getCognome());
 		clienteRichiesto.setSesso(Character.toString(c.getSesso()));
 		clienteRichiesto.setCf(c.getCf());
-		clienteRichiesto.setDataDiNascita(dateConversione(c));
+		clienteRichiesto.setDataDiNascita(c.getDataDiNascita().toString());
 		clienteRichiesto.setLuogoDiNascita(c.getLuogoDiNascita());
 		clienteRichiesto.setMail(c.getMail());
 		clienteRichiesto.setTelefono(c.getTelefono());
@@ -283,7 +283,7 @@ public class ClienteEndpoint {
 	public GetListaClientiResponse getListaClienti(@RequestPayload GetListaClientiRequest request) {
 		GetListaClientiResponse response = new GetListaClientiResponse();
 		for(Cliente ic: clienteService.getAll()) {
-			com.example.anagrafica.presentation.Cliente nuovocliente = new com.example.anagrafica.presentation.Cliente();
+			Clientex nuovocliente = new Clientex();
 			nuovocliente.setCf(ic.getCf());
 			nuovocliente.setNome(ic.getNome());
 			nuovocliente.setCognome(ic.getCognome());
