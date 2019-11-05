@@ -198,7 +198,6 @@ public class ClienteEndpoint {
 			x2.setCognome(c.getCognome());
 			x2.setCf(c.getCf());
 			x2.setDataDiNascita(Utils.dataToString(c.getDataDiNascita()));
-			x2.setIdCliente(BigInteger.valueOf(c.getId()));
 			x2.setLuogoDiNascita(c.getLuogoDiNascita());
 			x2.setMail(c.getMail());
 			x2.setSesso(c.getSesso().toString());
