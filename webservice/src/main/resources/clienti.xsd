@@ -107,7 +107,7 @@
 
 	<xs:complexType name="cliente2">
 		<xs:sequence>
-			<xs:element name="id" type="xs:int" />
+
 			<xs:element name="nome" type="xs:string" />
 			<xs:element name="cognome" type="xs:string" />
 			<xs:element name="sesso" type="xs:string" />
@@ -153,13 +153,13 @@
 
 	<xs:complexType name="indirizzo2">
 		<xs:sequence>
-			<xs:element name="id" type="xs:int" />
 			<xs:element name="luogo" type="xs:string" />
 			<xs:element name="numero_civico" type="xs:int" />
 			<xs:element name="citta" type="xs:string" />
 			<xs:element name="provincia" type="xs:string" />
 			<xs:element name="regione" type="xs:string" />
 			<xs:element name="nazione" type="xs:string" />
+			<xs:element name="tipo" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
 
@@ -168,8 +168,8 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="cliente" type="tns:cliente2" />
-				<xs:element name="indirizzo" type="tns:indirizzo2" />
-				<xs:element name="tipo" type="xs:string" />
+				<xs:element name="indirizzo" type="tns:indirizzo2"
+					minOccurs="0" maxOccurs="2" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

@@ -224,14 +224,20 @@ public class ClienteEndpoint {
 		CreateClienteResponse ccr = new CreateClienteResponse();
 		Map<String, Indirizzo> m = new HashMap<String, Indirizzo>();
 		Cliente2 cl=req.getCliente();
-		Indirizzo indirizzo=new Indirizzo(req.getIndirizzo().getLuogo(),req.getIndirizzo().getNumeroCivico(),req.getIndirizzo().getCitta(),req.getIndirizzo().getProvincia(),req.getIndirizzo().getRegione(),req.getIndirizzo().getNazione());
-		indirizzoService.create(indirizzo);
+		Indirizzo indirizzo;
+		String tipo=null;
+		for (Indirizzo2 ind:req.getIndirizzo()) {
+			indirizzo=new Indirizzo(ind.getLuogo(),ind.getNumeroCivico(),ind.getCitta(),ind.getProvincia(),ind.getRegione(),ind.getNazione());
+			indirizzoService.create(indirizzo);
+			tipo=ind.getTipo();
+			m.put(tipo, indirizzo);
+		}
 		char s = cl.getSesso().charAt(0);
 		
 		Date d = dataConverter(	cl.getDataDiNascita());
 		
 		Cliente c = new Cliente(cl.getNome(), cl.getCognome(), s, cl.getCf(), d, cl.getLuogoDiNascita(), cl.getMail(), cl.getTelefono());
-		m.put(req.getTipo(), indirizzo);
+	
 
 		ccr.setResponse(clienteService.create(c, m));
 		return ccr;
