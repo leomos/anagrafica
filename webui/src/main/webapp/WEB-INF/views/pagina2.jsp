@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +30,14 @@
 							<td>${ c.nome }</td>
 							<td>${ c.cognome }</td>
 							<td>${ c.cf }</td>
-							<td>${c.dataDiNascita}</td>
+							<td><fmt:formatDate value="${c.dataDiNascita}" pattern="yyyy-MM-dd" /></td>
 							<td>${c.luogoDiNascita}</td>
 							<td>${c.mail}</td>
 							<td>${c.telefono}</td>
+							<td><form:form action="/clienti" method="GET">
+							<input type="hidden" name="cf" value="${c.cf }" />
+							<input type="submit" value="Dettaglio" />
+						</form:form></td>
 						</tr>
 					</c:if>
 				</c:forEach>
@@ -44,7 +50,7 @@
 					<td>${cliente.cognome}</td>
 					<td>${cliente.sesso}</td>
 					<td>${cliente.cf}</td>
-					<td>${cliente.dataDiNascita}</td>
+					<td><fmt:formatDate value="${cliente.dataDiNascita}" pattern="yyyy-MM-dd" /></td>
 					<td>${cliente.luogoDiNascita}</td>
 					<td>${cliente.mail}</td>
 					<td>${cliente.telefono}</td>
@@ -74,7 +80,7 @@ Sesso:<br>
 						<br>
 Data di Nascita:<br>
 						<input type="date" name="dataDiNascita"
-							value="${cliente.dataDiNascita }">
+							value="<fmt:formatDate value="${cliente.dataDiNascita}" pattern="yyyy-MM-dd" />">
 						<br>
 Luogo di Nascita:<br>
 						<input type="text" name="luogoDiNascita"
