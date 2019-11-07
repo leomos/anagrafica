@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Cliente {
 
@@ -31,6 +33,7 @@ public class Cliente {
 	
 	private String cf;
 	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Column(name="data_di_nascita")
 	private Date dataDiNascita;
 	

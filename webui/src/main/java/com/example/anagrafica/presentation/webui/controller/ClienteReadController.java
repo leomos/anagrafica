@@ -16,11 +16,12 @@ public class ClienteReadController {
 
 	@GetMapping("/clienti")
 	public String getAll(Model model, @RequestParam(value = "cf", defaultValue = "") String cf) {
-		if (cf == null||cf.isEmpty()) model.addAttribute("clienti", clienteService.getAll());
-		else if (!clienteService.getByCf(cf).isPresent() || !clienteService.getByCf(cf).get().isVisibile()) {
-				model.addAttribute("cercato", false);			
-			}
-			 else {
+		if (cf == null || cf.isEmpty()) {
+			model.addAttribute("clienti", clienteService.getAll());
+//			model.addAttribute("cfVuoto", true);
+		} else if (!clienteService.getByCf(cf).isPresent() || !clienteService.getByCf(cf).get().isVisibile()) {
+			model.addAttribute("cercato", false);
+		} else {
 			model.addAttribute("cliente", clienteService.getByCf(cf).get());
 		}
 		return "pagina2";
