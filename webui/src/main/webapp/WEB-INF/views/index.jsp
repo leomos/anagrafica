@@ -6,6 +6,7 @@
 <%@page import="com.example.anagrafica.business.ClienteFilter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,7 +79,7 @@ function showInsert(id){
 	<script type="text/javascript">
 
 function goToClientePage() {
-	window.location = "/clienti/filter/"+document.getElementById("id2").value;
+	window.location = "/MergeRobiSamu/clienti/filter/"+document.getElementById("id2").value;
 }
 
 </script>
@@ -88,7 +89,7 @@ function goToClientePage() {
 	<br>
 
 	<div>cerca tramite altri parametri</div>
-	<form:form action="/clienti/filter" method="Get">
+	<form:form action="/MergeRobiSamu/clienti/filter" method="Get">
 		<input type="text" placeholder="con nome:" name="nome" value="">
 		<input type="text" placeholder="con cognome:" name="cognome" value="">
 		<input type="text" placeholder="di sesso:" name="sesso" value="">
@@ -109,7 +110,7 @@ function goToClientePage() {
 
 	</form:form>
 	<br>
-	<form:form action="/clienti/filter" method="Get">
+	<form:form action="/MergeRobiSamu/clienti/filter" method="Get">
 
 		<input type="hidden" name="nome" value="">
 		<input type="hidden" name="cognome" value="">
@@ -167,22 +168,29 @@ function goToClientePage() {
 				<td>${p.mail }</td>
 				<td>${p.telefono }</td>
 				<td>
-					<button onclick='showDettaglio("${p.id}")'>dettaglio</button>
+				
+				<button><a href="http://localhost:5679/MergeRobiSamu/clienti/${p.id }">Dettaglio</a></button>
+				</td>
 				<td>
-					<button onclick='showInsert("${p.id}")'>inserisci/modifica</button>
+					
 			</tr>
+<!-- 	
 
+
+<button onclick='showInsert("${p.id}")'>inserisci/modifica</button></td> 
 			<button class="dettaglio-${p.id}"
 				onclick='nascondiDettaglio("${p.id}")' style="display: none">
 				nascondi</button>
-			</td>
+			
 			<button class="insert-${p.id}" onclick='nascondiInsert("${p.id}")'
 				style="display: none">nascondiinsert</button>
 
-			<div style="background-color: white">
+<br>
+		<div style="background-color: white">
 				<iframe src="http://localhost:5679/clienti/1"
 					class="dettaglio-${p.id} frameTabella" style="display: none">
 					testo</iframe>
+					
 				
 			</div>
 
@@ -191,7 +199,7 @@ function goToClientePage() {
 					class="insert-${p.id} frameTabella" style="display: none">
 					testo</iframe>
 			</div>
-
+ -->
 		</c:forEach>
 	</table>
 

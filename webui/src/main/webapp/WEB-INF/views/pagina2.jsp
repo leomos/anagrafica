@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -7,14 +7,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Pagina 2</title>
 </head>
 <body>
 	<c:choose>
 		<c:when test="${cercato==false}">
 			<div>Il Cliente cercato non esiste.</div>
-			<form:form action="/" method="GET">
+			<form:form action="/MergeRobiSamu/" method="GET">
 				<input type="submit" value="Torna all'elenco" />
 			</form:form>
 		</c:when>
@@ -34,7 +34,7 @@
 							<td>${c.luogoDiNascita}</td>
 							<td>${c.mail}</td>
 							<td>${c.telefono}</td>
-							<td><form:form action="/clienti" method="GET">
+							<td><form:form action="/MergeRobiSamu/clienti" method="GET">
 							<input type="hidden" name="cf" value="${c.cf }" />
 							<input type="submit" value="Dettaglio" />
 						</form:form></td>
@@ -54,7 +54,7 @@
 					<td>${cliente.luogoDiNascita}</td>
 					<td>${cliente.mail}</td>
 					<td>${cliente.telefono}</td>
-					<td><form:form action="/clienti/delete" method="POST">
+					<td><form:form action="/MergeRobiSamu/clienti/delete" method="POST">
 							<input type="hidden" name="cf" value="${cliente.cf }" />
 							<input type="submit" value="elimina" />
 						</form:form></td>
@@ -66,7 +66,7 @@
 			<table id="tabellaUpdate" style="display: none">
 				<tr>
 				<td>
-					<form:form action="/clienti/update" method="POST">
+					<form:form action="/MergeRobiSamu/clienti/update" method="POST">
 					<input type="hidden" name="id" value="${cliente.id }" />
 					<input type="hidden" name="cf" value="${cliente.cf }" />					
 		Nome:<br>
@@ -101,19 +101,19 @@ Telefono:<br>
 	</c:choose>
 	<c:if test="${cancellato==true}">
 		<div>Cliente cancellato con successo.</div>
-		<form:form action="/" method="GET">
+		<form:form action="/MergeRobiSamu/" method="GET">
 			<input type="submit" value="Torna all'elenco" />
 		</form:form>
 	</c:if>
 	<c:if test="${aggiornato==true}">
 		<div>Cliente aggiornato con successo.</div>
-		<form:form action="/" method="GET">
+		<form:form action="/MergeRobiSamu/" method="GET">
 			<input type="submit" value="Torna all'elenco" />
 		</form:form>
 	</c:if>
 	<c:if test="${aggiornato==false}">
-		<div>Cliente non aggiornato perchè non presente e per errori.</div>
-		<form:form action="/" method="GET">
+		<div>Cliente non aggiornato perchÃ¨ non presente e per errori.</div>
+		<form:form action="/MergeRobiSamu/" method="GET">
 			<input type="submit" value="Torna all'elenco" />
 		</form:form>
 	</c:if>
