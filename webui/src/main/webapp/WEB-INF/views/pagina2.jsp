@@ -8,13 +8,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Pagina 2</title>
 </head>
 <body>
 	<c:choose>
 		<c:when test="${cercato==false}">
 			<div>Il Cliente cercato non esiste.</div>
-			<form:form action="/clienti" method="GET">
+			<form:form action="/" method="GET">
 				<input type="submit" value="Torna all'elenco" />
 			</form:form>
 		</c:when>
@@ -101,19 +101,19 @@ Telefono:<br>
 	</c:choose>
 	<c:if test="${cancellato==true}">
 		<div>Cliente cancellato con successo.</div>
-		<form:form action="/clienti" method="GET">
+		<form:form action="/" method="GET">
 			<input type="submit" value="Torna all'elenco" />
 		</form:form>
 	</c:if>
 	<c:if test="${aggiornato==true}">
 		<div>Cliente aggiornato con successo.</div>
-		<form:form action="/clienti" method="GET">
+		<form:form action="/" method="GET">
 			<input type="submit" value="Torna all'elenco" />
 		</form:form>
 	</c:if>
 	<c:if test="${aggiornato==false}">
 		<div>Cliente non aggiornato perchè non presente e per errori.</div>
-		<form:form action="/clienti" method="GET">
+		<form:form action="/" method="GET">
 			<input type="submit" value="Torna all'elenco" />
 		</form:form>
 	</c:if>

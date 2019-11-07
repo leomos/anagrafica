@@ -11,14 +11,14 @@ import com.example.anagrafica.business.ClienteService;
 
 @Controller
 public class ClienteDeleteController {
-@Autowired
-ClienteService clienteService;
+	@Autowired
+	ClienteService clienteService;
 
-@PostMapping("/clienti/delete")
-public String deleteCliente(@RequestParam("cf") String cf,Model model) {
-	System.out.println("Richiesta Cancellazione avvenuta correttamente.");
-	model.addAttribute("cancellato",true);
-	this.clienteService.deleteLogical(this.clienteService.getByCf(cf).get());
-	return "pagina2";
-}
+	@PostMapping("/clienti/delete")
+	public String deleteCliente(@RequestParam("cf") String cf, Model model) {
+		System.out.println("Richiesta Cancellazione avvenuta correttamente.");
+		model.addAttribute("cancellato", true);
+		this.clienteService.deleteLogical(this.clienteService.getByCf(cf).get());
+		return "pagina2";
+	}
 }
