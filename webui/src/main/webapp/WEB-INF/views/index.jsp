@@ -12,11 +12,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
+<style>
+.frameTabella {
+	width: 1600px;
+	height: 900px;
+}
+</style>
 
 <script type="text/javascript">
 var listaClienti = [];
-
+var a="";
 
 function showDettaglio(id) {
 	
@@ -68,10 +73,7 @@ function showInsert(id){
 </script>
 </head>
 <body>
-
 	<div>cerca tramite L'id</div>
-
-
 	<input type="number" step="1" placeholder="id=?" id="id2">
 	<script type="text/javascript">
 
@@ -83,20 +85,17 @@ function goToClientePage() {
 	<button onclick="goToClientePage()">trova cliente con l'id
 		selezionato</button>
 
-
-
-
-
 	<br>
+
 	<div>cerca tramite altri parametri</div>
 	<form:form action="/clienti/" method="Get">
 		<input type="text" placeholder="con nome:" name="nome" value="">
 		<input type="text" placeholder="con cognome:" name="cognome" value="">
 		<input type="text" placeholder="di sesso:" name="sesso" value="">
 		<input type="text" placeholder="con cf:" name="cf" value="">
-		<input type="text" placeholder="nati dopo il:" name="dataIniziale"
+		<input type="date" placeholder="nati dopo il:" name="dataIniziale"
 			value="01/01/0000">
-		<input type="text" placeholder="nati prima del:" name="dataFinale"
+		<input type="date" placeholder="nati prima del:" name="dataFinale"
 			value="01/01/9999">
 		<input type="text" placeholder="con residenza nella provicia di:"
 			name="provinciaDiResidenza" value="">
@@ -109,34 +108,36 @@ function goToClientePage() {
 
 
 	</form:form>
-<br>
-<form:form action="/clienti/" method="Get">
-		<input type="hidden"  name="nome" value="">
-		<input type="hidden"  name="cognome" value="">
-		<input type="hidden"  name="sesso" value="">
-		<input type="hidden"  name="cf" value="">
-		<input type="hidden"  name="dataIniziale"
-			value="01/01/0000">
-		<input type="hidden"  name="dataFinale"
-			value="01/01/9999">
-		<input type="hidden"
-			name="provinciaDiResidenza" value="">
-		<input type="hidden" 
-			name="regioneDiResidenza" value="">
+	<br>
+	<form:form action="/clienti/" method="Get">
 
+		<input type="hidden" name="nome" value="">
+		<input type="hidden" name="cognome" value="">
+		<input type="hidden" name="sesso" value="">
+		<input type="hidden" name="cf" value="">
+		<input type="hidden" name="dataIniziale" value="01/01/0000">
+		<input type="hidden" name="dataFinale" value="01/01/9999">
+		<input type="hidden" name="provinciaDiResidenza" value="">
+		<input type="hidden" name="regioneDiResidenza" value="">
 
 		<input type="submit" value="visualizza tutti">
-
-
-
 	</form:form>
 
 
 
-<div id="nonTrovati"  style="display: none">
-cliente non trovato
-</div>
+	<div id="nonTrovati" style="display: none">
+		cliente non trovato
 
+
+
+		<div id="messaggioDiErrore">
+
+			<c:forEach var="p" items="${ messaggioDiErrore }">
+				<div>${p}</div>
+
+			</c:forEach>
+		</div>
+	</div>
 
 
 
@@ -152,7 +153,7 @@ cliente non trovato
 			<th>telefono</th>
 		</tr>
 		<c:forEach var="p" items="${ clienteCollection }">
-<script>
+			<script>
              listaClienti.push(${p.id});
 </script>
 
@@ -170,60 +171,39 @@ cliente non trovato
 				<td>
 					<button onclick='showInsert("${p.id}")'>inserisci/modifica</button>
 			</tr>
-			<tr>
-				<td><button class="dettaglio-${p.id}"
-						onclick='nascondiDettaglio("${id}")' style="display: none">
-						nascondi</button></td>
-				<td><button class="insert-${p.id}"
-						onclick='nascondiInsert("${id}")' style="display: none">
-						nascondiinsert</button></td>
-			</tr>
-			<tr>
 
-				<td>
-					<div style="background-color: white">
+			<button class="dettaglio-${p.id}"
+				onclick='nascondiDettaglio("${p.id}")' style="display: none">
+				nascondi</button>
+			</td>
+			<button class="insert-${p.id}" onclick='nascondiInsert("${p.id}")'
+				style="display: none">nascondiinsert</button>
 
-
+			<div style="background-color: white">
+				<iframe src="http://localhost:5679/clienti/1"
+					class="dettaglio-${p.id} frameTabella" style="display: none">
+					testo</iframe>
 
 
-						<iframe   src="http://localhost:5679/clienti/1"
-							class="dettaglio-${p.id}" style="display: none"> testo</iframe>
+			</div>
 
+			<div style="background-color: white">
+				<iframe src="http://localhost:5679/clienti/${p.id }"
+					class="insert-${p.id} frameTabella" style="display: none">
+					testo</iframe>
+			</div>
 
-					</div>
-				</td>
-
-
-
-				<td>
-				<div style="background-color: white">
-				<iframe   src="http://localhost:5679/clienti/${p.id }"
-							class="insert-${p.id}" style="display: none"> testo</iframe>
-</div>
-</td>
-
-			</tr>
 		</c:forEach>
 	</table>
 
 
-
-<script type="text/javascript">
+	<script type="text/javascript">
 if (${trovato}==false){
 	document.getElementById("tabellaClienti").style.display="none";
 document.getElementById("nonTrovati").style.display="";
-		
-	
 }
 
 </script>
-
-
-
-
-
-
-
 
 </body>
 </html>

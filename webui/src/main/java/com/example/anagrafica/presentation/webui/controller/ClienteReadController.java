@@ -29,38 +29,101 @@ public class ClienteReadController {
 	ClienteService clienteService;
 
 	@GetMapping("/clienti")
-	public String index(@ModelAttribute ClienteFilter cf, ModelMap model) throws Exception {
-		System.out.println(cf.toString());
-		Collection<Cliente> cc = clienteService.findWithFilter(cf);
-		boolean trovato=true;
-		if (cc.isEmpty()) {
+	public String index(@ModelAttribute ClienteFilter cf, ModelMap model, HttpServletResponse response) throws Exception {
+		
+		boolean trovato = true;
+		
+		String messaggioDiErrore = "";
+		
+		ArrayList<String> ms=new ArrayList<String>();
+		
+		
+		try {
+
+			Collection<Cliente> cc = clienteService.findWithFilter(cf);
+
+			if (cc.isEmpty()) {
+				Cliente errore = new Cliente();
+				cc.add(errore);
+				trovato = false;
+			}
+			
+			ms.add(messaggioDiErrore);
+			
+			model.addAttribute("trovato", trovato);
+			model.addAttribute("clienteCollection", cc);
+			model.addAttribute("messaggioDiErrore", ms);
+			
+			return "index";
+		} catch (Exception e) {
+
+			ArrayList<Cliente> cc = new ArrayList<>();
 			Cliente errore = new Cliente();
 			cc.add(errore);
-			trovato=false;
+			trovato = false;
+			
+			
+			ms.add(messaggioDiErrore);
+			
+			messaggioDiErrore = "errore,dati inseriti in formato errato ";
+			model.addAttribute("messaggioDiErrore", ms);
+			model.addAttribute("trovato", trovato);
+			model.addAttribute("clienteCollection", cc);
+			
+			response.addHeader("Content-Security-Policy", "frame-ancestors 'self'");
+			return "index";
 		}
-		model.addAttribute("trovato", trovato);
-		model.addAttribute("clienteCollection", cc);
-		System.out.println(cc);
-		return "index";
+
 	}
 
 	@GetMapping("/clienti/{id}")
 	public String getOne(@PathVariable("id") String id, ModelMap model, HttpServletResponse response) {
-boolean trovato;
-		Optional<Cliente> c = clienteService.get(Integer.parseInt(id));
-		ArrayList<Cliente> cc = new ArrayList<>();
-		if (!c.isPresent()) {
+		boolean trovato;
+		ArrayList<String> ms=new ArrayList<String>();
+		String messaggioDiErrore = "";
+		try {
+
+			Optional<Cliente> c = clienteService.get(Integer.parseInt(id));
+			ArrayList<Cliente> cc = new ArrayList<>();
+			
+			if (!c.isPresent()) {
+				
+				Cliente errore = new Cliente();
+				cc.add(errore);
+				ms.add(messaggioDiErrore);
+				model.addAttribute("messaggioDiErrore", ms);
+				
+				trovato = false;
+			
+			} else {
+				
+				trovato = true;
+				
+				cc.add(c.get());
+			}
+			
+			model.addAttribute("trovato", trovato);
+			model.addAttribute("clienteCollection", cc);
+			
+			response.addHeader("Content-Security-Policy", "frame-ancestors 'self'");
+			return "index";
+
+		} catch (Exception e) {
+			
+			
+			ArrayList<Cliente> cc = new ArrayList<>();
 			Cliente errore = new Cliente();
 			cc.add(errore);
-			trovato=false;
-		} else {
-trovato=true;
-			cc.add(c.get());
-		}
-		model.addAttribute("trovato", trovato);
-		model.addAttribute("clienteCollection", cc);
-		response.addHeader("Content-Security-Policy", "frame-ancestors 'self'");
-		return "index";
+			trovato = false;
 
-	}
-}
+			messaggioDiErrore = "errore,id non riconosciuto";
+			ms.add(messaggioDiErrore);
+			
+			model.addAttribute("messaggioDiErrore", ms);
+			model.addAttribute("trovato", trovato);
+			model.addAttribute("clienteCollection", cc);
+			response.addHeader("Content-Security-Policy", "frame-ancestors 'self'");
+			
+			return "index";
+
+}}}
