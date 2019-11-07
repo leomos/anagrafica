@@ -38,7 +38,7 @@
 			</table>
 		</c:when>
 		<c:when test="${cliente.cf!=null}">
-			<table border="3">
+			<table border="3" id="tabellaCliente" style="display: block">
 				<tr>
 					<td>${cliente.nome}</td>
 					<td>${cliente.cognome}</td>
@@ -62,7 +62,7 @@
 				<td>
 					<form:form action="/clienti/update" method="POST">
 					<input type="hidden" name="id" value="${cliente.id }" />
-												<input type="hidden" name="cf" value="${cliente.cf }" />
+					<input type="hidden" name="cf" value="${cliente.cf }" />					
 		Nome:<br>
 						<input type="text" name="nome" value="${cliente.nome }">
 						<br>
@@ -86,7 +86,7 @@ Mail:<br>
 Telefono:<br>
 						<input type="text" name="telefono" value="${cliente.telefono }">
 						<br>
-									<input type="submit" value="Update">
+									<input type="submit" value="Update" onclick="javascript:nascondi()">
 					</form:form>
 					</td>
 				</tr>
@@ -105,10 +105,19 @@ Telefono:<br>
 			<input type="submit" value="Torna all'elenco" />
 		</form:form>
 	</c:if>
+	<c:if test="${aggiornato==false}">
+		<div>Cliente non aggiornato perchè non presente e per errori.</div>
+		<form:form action="/clienti" method="GET">
+			<input type="submit" value="Torna all'elenco" />
+		</form:form>
+	</c:if>
 	<script>
 	function mostra() {
 document.getElementById("tabellaUpdate").style.display="block";
 }
+	function nascondi() {
+		document.getElementById("tabellaCliente").style.display="none";
+		}
 	</script>
 </body>
 </html>

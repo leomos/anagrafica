@@ -12,13 +12,18 @@ import com.example.anagrafica.data.Cliente;
 
 @Controller
 public class ClienteUpdateController {
-@Autowired
-ClienteService clienteService;
+	@Autowired
+	ClienteService clienteService;
 
-@PostMapping("/clienti/update")
-public String update(@RequestParam("cf") String cf,Model model,@ModelAttribute Cliente cliente) {
-    this.clienteService.update(cliente);
-	model.addAttribute("aggiornato",true);
-	return "pagina2";
-}
+	@PostMapping("/clienti/update")
+	public String update(@RequestParam("cf") String cf, Model model, @ModelAttribute Cliente cliente) {
+		try {
+			Boolean bool = this.clienteService.update(cliente);
+			model.addAttribute("aggiornato", bool);
+		} catch (Exception e) {
+			model.addAttribute("aggiornato", false);
+		}
+
+		return "pagina2";
+	}
 }
