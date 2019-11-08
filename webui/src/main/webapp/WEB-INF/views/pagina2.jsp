@@ -35,7 +35,7 @@
 							<td>${c.luogoDiNascita}</td>
 							<td>${c.mail}</td>
 							<td>${c.telefono}</td>
-							<td><form:form action="/MergeRobiSamu/clienti" method="GET">
+							<td><form:form action="/MergeRobiSamu/" method="GET">
 							<input type="hidden" name="cf" value="${c.cf }" />
 							<input type="submit" value="Dettaglio" />
 						</form:form></td>

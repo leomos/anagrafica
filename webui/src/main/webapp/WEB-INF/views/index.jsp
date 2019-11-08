@@ -6,6 +6,8 @@
 <%@page import="com.example.anagrafica.business.ClienteFilter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ page import="java.text.SimpleDateFormat" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
 <!DOCTYPE html>
 <html>
@@ -79,7 +81,7 @@ function showInsert(id){
 	<script type="text/javascript">
 
 function goToClientePage() {
-	window.location = "/MergeRobiSamu/clienti/filter/"+document.getElementById("id2").value;
+	window.location = "/MergeRobiSamu/clienti/"+document.getElementById("id2").value;
 }
 
 </script>
@@ -168,8 +170,10 @@ function goToClientePage() {
 				<td>${p.mail }</td>
 				<td>${p.telefono }</td>
 				<td>
-				
-				<button><a href="http://localhost:5679/MergeRobiSamu/clienti/${p.id }">Dettaglio</a></button>
+				<form:form href="http://localhost:5679/MergeRobiSamu/" method="GET">
+				<input type="submit" value="Dettaglio" />
+				<input type="hidden" name="cf" value="${p.cf }" />
+			</form:form>
 				</td>
 				<td>
 					
@@ -202,7 +206,6 @@ function goToClientePage() {
  -->
 		</c:forEach>
 	</table>
-
 
 	<script type="text/javascript">
 if (${trovato}==false){
