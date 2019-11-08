@@ -26,16 +26,18 @@ public class ClienteUpdateController {
 	@PostMapping("/clienti/update")
 	public String update(@RequestParam("cf") String cf, Model model, @ModelAttribute Cliente cliente,
 			BindingResult result) {
-		ClienteValidator cv=new ClienteValidator();
+		ClienteValidator cv = new ClienteValidator();
 		cv.validate(cliente, result);
 		try {
 			if (result.hasErrors()) {
-				for (ObjectError e:result.getAllErrors()) {
+				
+				model.addAttribute("messaggioErroreUpdate", result.getAllErrors());
+			/*	for (ObjectError e : result.getAllErrors()) {
+
 					
-					model.addAttribute("messaggioErroreUpdate",e.getCode());
-					
-					
-				}
+					model.addAttribute("messaggioErroreUpdate", e.getCode());
+
+				}*/
 				model.addAttribute("aggiornato", false);
 			} else {
 				Boolean bool = this.clienteService.update(cliente);

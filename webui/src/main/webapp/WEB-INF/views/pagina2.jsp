@@ -114,7 +114,11 @@ Telefono:<br>
 	</c:if>
 	<c:if test="${aggiornato==false}">
 		<div>Cliente non aggiornato perchè non presente e per errori.</div> <br>
-		<div> ${messaggioErroreUpdate}</div>
+		<div> 
+		<c:forEach   var="p" items="${messaggioErroreUpdate}">  
+		${p.getCode()}
+		     </c:forEach>
+		</div>
 		<form:form action="/MergeRobiSamu/" method="GET">
 			<input type="submit" value="Torna all'elenco" />
 		</form:form>
