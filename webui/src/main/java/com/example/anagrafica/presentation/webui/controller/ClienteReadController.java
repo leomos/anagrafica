@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.anagrafica.business.ClienteFilter;
 import com.example.anagrafica.business.ClienteService;
 import com.example.anagrafica.data.Cliente;
+
 @RequestMapping("/MergeRobiSamu")
 @Controller
 public class ClienteReadController {
@@ -45,7 +46,7 @@ public class ClienteReadController {
 	public String getAll(Model model, @RequestParam(value = "cf", defaultValue = "") String cf) {
 		if (cf == null || cf.isEmpty()) {
 			model.addAttribute("clienteCollection", clienteService.getAll());
-//			model.addAttribute("cfVuoto", true);
+			// model.addAttribute("cfVuoto", true);
 		} else if (!clienteService.getByCf(cf).isPresent() || !clienteService.getByCf(cf).get().isVisibile()) {
 			model.addAttribute("cercato", false);
 		} else {
@@ -67,27 +68,28 @@ public class ClienteReadController {
 		boolean trovato = true;
 
 		String messaggioDiErrore = "";
-		 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 		ArrayList<String> ms = new ArrayList<String>();
-		
+
 		try {
-						 if(!cf.getDataIniziale().isEmpty())   {
-							 Date dataInizialeParz=new SimpleDateFormat("yyyy-MM-dd").parse(cf.getDataIniziale());  
-			 String strDateIniz= formatter.format(dataInizialeParz);
-			cf.setDataIniziale(strDateIniz);}
-						 else {
-							 cf.setDataIniziale("01/01/0001");
-						 };
-		
-if(!cf.getDataFinale().isEmpty()) {
-			 Date dataFinaleParz=new SimpleDateFormat("yyyy-MM-dd").parse(cf.getDataFinale());  
-			 
-			    String strDateFin= formatter.format(dataFinaleParz);
-			cf.setDataFinale(strDateFin);
-}else {
-	cf.setDataFinale("01/01/9999");
-}
+			if (!cf.getDataIniziale().isEmpty()) {
+				Date dataInizialeParz = new SimpleDateFormat("yyyy-MM-dd").parse(cf.getDataIniziale());
+				String strDateIniz = formatter.format(dataInizialeParz);
+				cf.setDataIniziale(strDateIniz);
+			} else {
+				cf.setDataIniziale("01/01/0001");
+			}
+			;
+
+			if (!cf.getDataFinale().isEmpty()) {
+				Date dataFinaleParz = new SimpleDateFormat("yyyy-MM-dd").parse(cf.getDataFinale());
+
+				String strDateFin = formatter.format(dataFinaleParz);
+				cf.setDataFinale(strDateFin);
+			} else {
+				cf.setDataFinale("01/01/9999");
+			}
 
 			Collection<Cliente> cc = clienteService.findWithFilter(cf);
 

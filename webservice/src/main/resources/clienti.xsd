@@ -43,7 +43,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
+
 
 
 	<xs:simpleType name="FormatoData">
@@ -116,8 +116,8 @@
 	<xs:element name="getClientiVisibiliResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ClientiVisibili" type="tns:XClienteResponse"
-					maxOccurs="unbounded"></xs:element>
+				<xs:element name="ClientiVisibili"
+					type="tns:XClienteResponse" maxOccurs="unbounded"></xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -190,8 +190,8 @@
 	<xs:element name="GetClienteByDettaglioResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="cliente_Richiesto" type="tns:XClienteResponse"
-					maxOccurs="unbounded" />
+				<xs:element name="cliente_Richiesto"
+					type="tns:XClienteResponse" maxOccurs="unbounded" />
 
 			</xs:sequence>
 		</xs:complexType>

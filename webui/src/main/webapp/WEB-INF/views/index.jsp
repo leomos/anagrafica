@@ -6,7 +6,7 @@
 <%@page import="com.example.anagrafica.business.ClienteFilter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -168,13 +168,14 @@ function goToClientePage() {
 				<td>${p.mail }</td>
 				<td>${p.telefono }</td>
 				<td>
-				
-				<button><a href="http://localhost:5679/MergeRobiSamu/clienti/${p.id }">Dettaglio</a></button>
+
+					<button>
+						<a href="http://localhost:5679/MergeRobiSamu/clienti/${p.id }">Dettaglio</a>
+					</button>
 				</td>
 				<td>
-					
 			</tr>
-<!-- 	
+			<!-- 	
 
 
 <button onclick='showInsert("${p.id}")'>inserisci/modifica</button></td> 
