@@ -2,8 +2,11 @@ package com.example.anagrafica.presentation.webui.controller;
 
 import java.util.Map;
 
+import javax.xml.ws.BindingType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +27,7 @@ public class ClienteCreateController {
 
 	@PostMapping("/clienti")
 	public String create(@ModelAttribute("cliente") Cliente cliente,
-			@ModelAttribute("indirizzi") Map<String, Indirizzo> indirizzoCliente) {
+			@ModelAttribute("indirizzi") Map<String, Indirizzo> indirizzoCliente,BindingResult result) {
 		this.indirizzoService.create(indirizzoCliente.get("domicilio"));
 		this.indirizzoService.create(indirizzoCliente.get("residenza"));
 		this.clienteService.create(cliente, indirizzoCliente);

@@ -1,3 +1,4 @@
+<%@page import="org.springframework.ui.Model"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -76,7 +77,7 @@ Cognome:<br>
 						<input type="text" name="cognome" value="${cliente.cognome }">
 						<br>
 Sesso:<br>
-						<input type="text" name="sesso" value="${cliente.sesso }">
+						<input type="text" name="sesso" value="${cliente.sesso }" >
 						<br>
 Data di Nascita:<br>
 						<input type="date" name="dataDiNascita"
@@ -112,7 +113,8 @@ Telefono:<br>
 		</form:form>
 	</c:if>
 	<c:if test="${aggiornato==false}">
-		<div>Cliente non aggiornato perchè non presente e per errori.</div>
+		<div>Cliente non aggiornato perchè non presente e per errori.</div> <br>
+		<div> ${messaggioErroreUpdate}</div>
 		<form:form action="/MergeRobiSamu/" method="GET">
 			<input type="submit" value="Torna all'elenco" />
 		</form:form>
