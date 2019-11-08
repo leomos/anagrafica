@@ -67,22 +67,27 @@ public class ClienteReadController {
 		boolean trovato = true;
 
 		String messaggioDiErrore = "";
+		 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 
 		ArrayList<String> ms = new ArrayList<String>();
-		System.out.println(cf.getDataFinale());
+		
 		try {
-			
-			 Date dataInizialeParz=new SimpleDateFormat("yyyy-MM-dd").parse(cf.getDataIniziale());  
-			 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
-			    String strDateIniz= formatter.format(dataInizialeParz);
-			cf.setDataIniziale(strDateIniz);
-			
-
+						 if(!cf.getDataIniziale().isEmpty())   {
+							 Date dataInizialeParz=new SimpleDateFormat("yyyy-MM-dd").parse(cf.getDataIniziale());  
+			 String strDateIniz= formatter.format(dataInizialeParz);
+			cf.setDataIniziale(strDateIniz);}
+						 else {
+							 cf.setDataIniziale("01/01/0001");
+						 };
+		
+if(!cf.getDataFinale().isEmpty()) {
 			 Date dataFinaleParz=new SimpleDateFormat("yyyy-MM-dd").parse(cf.getDataFinale());  
 			 
 			    String strDateFin= formatter.format(dataFinaleParz);
 			cf.setDataFinale(strDateFin);
-			
+}else {
+	cf.setDataFinale("01/01/9999");
+}
 
 			Collection<Cliente> cc = clienteService.findWithFilter(cf);
 
